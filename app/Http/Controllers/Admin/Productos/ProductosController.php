@@ -29,7 +29,9 @@ class ProductosController extends Controller
     {
         $name = $request->varsearch ?:'';
         $name = trim(strtoupper($name));
-        $producto = Producto::where('nombre','like',"%$name%")->select('id','nombre as text')->get();
+        $producto = Producto::select('producto.id','producto.nombre as text','presentacion.nombre as pre')
+                        ->join('presentacion','presentacion.id','=','producto.idpresentacion')
+                        ->where('producto.nombre','like',"%pro%")->get();     
         return $producto;
     }
 

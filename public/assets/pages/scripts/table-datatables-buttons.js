@@ -35,6 +35,34 @@ var TableDatatablesButtons = function () {
                 { extend: 'colvis', className: 'btn dark btn-outline', text: 'Columns'}
             ],
 
+            "bProcessing": true,
+            "sAjaxSource": '{{ url("listado-compras") }}',
+            "pagingType": "bootstrap_full_number",
+            "columnDefs": [
+                        { 
+                            'orderable': false,
+                            'targets': '_all'
+                        },
+                        {
+                            'targets':8,
+                            'render': function ( data, type, row ) {
+                            return ' \
+                            <a href="eliminar-compra/'+row.id+' " title="Eliminar" class="btn btn-icon-only red" ><i class="fa fa-trash"></i></a> \
+                            ';
+                            }
+                        }
+                    ],
+            "columns": [
+                    { "data": "fecha","defaultContent": "" },
+                    { "data": "operacion","defaultContent": "" },
+                    { "data": "producto.nombre","defaultContent": "" },
+                    { "data": "tipo.nombre","defaultContent": "" },
+                    { "data": "pago.nombre","defaultContent": "" },
+                    { "data": "cantidad","defaultContent": "" },
+                    { "data": "precio_unitario","defaultContent": "" },
+                    { "data": "importe","defaultContent": "" },
+                ],
+
             // setup responsive extension: http://datatables.net/extensions/responsive/
             responsive: true,
 

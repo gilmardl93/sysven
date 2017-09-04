@@ -13,6 +13,5 @@
             Route::post('actualizar-compra','ComprasController@actualizar')->name('compra.actualizar');
             Route::post('agregar-producto','ComprasController@agregarproducto')->name('compra.agregar.producto'); 
             Route::get('eliminar-producto-agregado/{id}','ComprasController@eliminarproducto');
-
         });        
     });

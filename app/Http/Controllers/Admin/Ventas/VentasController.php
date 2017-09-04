@@ -1,29 +1,29 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Compras;
+namespace App\Http\Controllers\Admin\Ventas;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\Admin\Compra\RegistrarRequest;
-use App\Http\Requests\Admin\Compra\AgregarProductoRequest;
-use App\Models\Compra;
+use App\Http\Requests\Admin\Venta\RegistrarRequest;
+use App\Http\Requests\Admin\Venta\AgregarProductoRequest;
+use App\Models\Venta;
 use App\Models\Tipo;
 use App\Models\Pago;
 use App\Models\Producto;
 use DB;
 
-class ComprasController extends Controller
+class VentasController extends Controller
 {
     public function index()
     {
-        return view('admin.compra.index');
+        return view('admin.venta.index');
     }
 
     public function listado()
     {
-        $compra = Compra::where('idtipo','<>','')->with(['pago','tipo','producto'])->get();
-        $lista['data'] = $compra;
+        $venta = Venta::where('idtipo','<>','')->with(['pago','tipo','producto'])->get();
+        $lista['data'] = $venta;
         return $lista;
     }
 
@@ -31,20 +31,20 @@ class ComprasController extends Controller
     {
         $tipo = Tipo::pluck('nombre','id');
         $pago = Pago::pluck('nombre','id');
-        $compra = Compra::Disponible()->with('producto')->get();
-        $cantidad = Compra::Disponible()->sum('cantidad');
-        $precio_unitario = Compra::Disponible()->sum('precio_unitario');
-        $importe = Compra::Disponible()->sum('importe');
-        return view('admin.compra.nuevo', compact(['compra','tipo','pago','cantidad','precio_unitario','importe']));
+        $venta = Venta::Disponible()->with('producto')->get();
+        $cantidad = Venta::Disponible()->sum('cantidad');
+        $precio_unitario = Venta::Disponible()->sum('precio_unitario');
+        $importe = Venta::Disponible()->sum('importe');
+        return view('admin.venta.nuevo', compact(['venta','tipo','pago','cantidad','precio_unitario','importe']));
     }
 
     public function registrar(RegistrarRequest $request)
     {
-        $producto = Compra::Disponible()->get();
+        $producto = Venta::Disponible()->get();
         foreach($producto as $row):
-            Producto::where('id',$row->idproducto)->update(['stock' => $row->cantidad, 'precio_compra' => $row->precio_unitario]);
+            Producto::where('id',$row->idproducto)->update(['stock' => $row->cantidad, 'precio_venta' => $row->precio_unitario]);
 
-            Compra::Disponible()->update([
+            Venta::Disponible()->update([
             'idtipo' => $request->documento,
             'idprovedor' => $request->provedor,
             'idpago' => $request->pago,
@@ -53,33 +53,33 @@ class ComprasController extends Controller
         ]);
         endforeach;       
 
-        return redirect('compra')->with('message','Se registro nueva compra');
+        return redirect('venta')->with('message','Se registro nueva venta');
     }
 
     public function eliminar($id)
     {
-        Compra::where('id',$id)->delete();
+        Venta::where('id',$id)->delete();
 
-        return redirect('compra')->with('eliminar','Compra eliminada');
+        return redirect('venta')->with('eliminar','Venta anulada');
     }
 
     public function editar($id)
     {
-        $compra = Compra::where('id',$id)->get();
+        $venta = Venta::where('id',$id)->get();
         
-        return view('admin.compra.editar', compact('compra'));
+        return view('admin.venta.editar', compact('venta'));
     }
 
     public function actualizar(RegistrarRequest $request)
     {
-        Compra::where('id', $request->id)->update(['nombre' => strtoupper($request->nombre)]);
+        Venta::where('id', $request->id)->update(['nombre' => strtoupper($request->nombre)]);
 
-        return redirect('compra')->with('message','Se actualizo compra');
+        return redirect('venta')->with('message','Se actualizo venta');
     }
 
     public function agregarproducto(AgregarProductoRequest $request)
     {
-        $data = new Compra();
+        $data = new Venta();
         $data->idproducto = $request->producto;
         $data->cantidad = $request->cantidad;
         $data->precio_unitario = $request->precio_unitario;
@@ -92,7 +92,7 @@ class ComprasController extends Controller
 
     public function eliminarproducto($id)
     {
-        Compra::where('id',$id)->delete();
+        Venta::where('id',$id)->delete();
 
         return redirect('nueva-compra')->with('eliminar','Producto agregado eliminado');
     }

@@ -7,6 +7,34 @@
                             <li class="nav-item start ">
                                 <a href="javascript:;" class="nav-link nav-toggle">
                                     <i class="icon-home"></i>
+                                    <span class="title">CONFIGURACION</span>
+                                    <span class="selected"></span>
+                                    <span class="arrow open"></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li class="nav-item start ">
+                                        <a href="{!! url('empresa') !!}" class="nav-link ">
+                                            <i class="icon-bar-chart"></i>
+                                            <span class="title">Empresa</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item start ">
+                                        <a href="{!! url('usuario') !!}" class="nav-link ">
+                                            <i class="icon-bulb"></i>
+                                            <span class="title">Usuarios</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item start open">
+                                        <a href="{!! url('restringir') !!}" class="nav-link ">
+                                            <i class="icon-graph"></i>
+                                            <span class="title">Restringir</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item start ">
+                                <a href="javascript:;" class="nav-link nav-toggle">
+                                    <i class="icon-home"></i>
                                     <span class="title">ALMACEN</span>
                                     <span class="selected"></span>
                                     <span class="arrow open"></span>
@@ -75,6 +103,28 @@
                             <li class="nav-item start ">
                                 <a href="javascript:;" class="nav-link nav-toggle">
                                     <i class="icon-home"></i>
+                                    <span class="title">VENTAS</span>
+                                    <span class="selected"></span>
+                                    <span class="arrow open"></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li class="nav-item start ">
+                                        <a href="{!! url('venta') !!}" class="nav-link ">
+                                            <i class="icon-bar-chart"></i>
+                                            <span class="title">Ventas</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item start ">
+                                        <a href="{!! url('cliente') !!}" class="nav-link ">
+                                            <i class="icon-bar-chart"></i>
+                                            <span class="title">Clientes</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item start ">
+                                <a href="javascript:;" class="nav-link nav-toggle">
+                                    <i class="icon-home"></i>
                                     <span class="title">INVENTARIO</span>
                                     <span class="selected"></span>
                                     <span class="arrow open"></span>
@@ -83,19 +133,7 @@
                                     <li class="nav-item start ">
                                         <a href="{!! url('compra') !!}" class="nav-link ">
                                             <i class="icon-bar-chart"></i>
-                                            <span class="title">Compras</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item start ">
-                                        <a href="{!! url('provedor') !!}" class="nav-link ">
-                                            <i class="icon-bulb"></i>
-                                            <span class="title">Provedores</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item start ">
-                                        <a href="{!! url('pago') !!}" class="nav-link ">
-                                            <i class="icon-bulb"></i>
-                                            <span class="title">Tipo de Pago</span>
+                                            <span class="title">General</span>
                                         </a>
                                     </li>
                                 </ul>
