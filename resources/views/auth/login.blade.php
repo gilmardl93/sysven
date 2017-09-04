@@ -19,7 +19,7 @@
                             </div>
                         @endif
                         </p>
-                        {!! Form::open(['class' => 'login-form', 'method' => 'POST', 'route' => 'auth.login']) !!}
+                        {!! Form::open(['class' => 'login-form', 'method' => 'POST', 'route' => 'sesion']) !!}
                             <div class="row">
                                 <div class="col-xs-6">
                                 {!! Form::text('username',null,['class' => 'form-control form-control-solid placeholder-no-fix form-group', 'placeholder' => 'USUARIO']) !!}

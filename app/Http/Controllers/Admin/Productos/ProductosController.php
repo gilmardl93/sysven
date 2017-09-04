@@ -4,82 +4,72 @@ namespace App\Http\Controllers\Admin\Productos;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Producto\RegistrarRequest;
+use App\Models\Producto;
+use App\Models\Marca;
+use App\Models\Categoria;
+use App\Models\Presentacion;
 
 class ProductosController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        return view('admin.producto.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function listado()
     {
-        //
+        $producto = Producto::with(['marca','presentacion','categoria'])->get();
+        $lista['data'] = $producto;
+        return $lista;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function listadoJson(Request $request)
     {
-        //
+        $name = $request->varsearch ?:'';
+        $name = trim(strtoupper($name));
+        $producto = Producto::where('nombre','like',"%$name%")->select('id','nombre as text')->get();
+        return $producto;
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function nuevo()
     {
-        //
+        return view('admin.producto.registrar');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function registrar(RegistrarRequest $request)
     {
-        //
+        $data = new Producto();
+        $data->codigo = strtoupper($request->codigo);
+        $data->nombre = strtoupper($request->nombre);
+        $data->precio_venta = $request->precio_venta;
+        $data->idcategoria = $request->categoria;
+        $data->idmarca = $request->marca;
+        $data->idpresentacion = $request->presentacion;
+        $data->fecha = date('Y-m-d');
+        $data->save();
+
+        return redirect('producto')->with('message','Se registro nuevo producto');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function eliminar($id)
     {
-        //
+        Producto::where('id',$id)->delete();
+
+        return redirect('producto')->with('eliminar','producto eliminado');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function editar($id)
     {
-        //
+        $producto = Producto::where('id',$id)->get();
+        
+        return view('admin.producto.editar', compact('producto'));
+    }
+
+    public function actualizar(RegistrarRequest $request)
+    {
+        Producto::where('id', $request->id)->update(['nombre' => strtoupper($request->nombre)]);
+
+        return redirect('producto')->with('message','Se actualizo producto');
     }
 }

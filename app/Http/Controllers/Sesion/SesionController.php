@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Sesion;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-class LoginController extends Controller
+class SesionController extends Controller
 {
     public function login(Request $request)
     {
         if(Auth::attempt(['username' => $request->username, 'password' => $request->password, 'activo' => true])) 
         {
-            return redirect()->intended('dashboard');
+            return redirect()->intended('/');
         }else 
         {
             return redirect('login')->with('message','Usuario Inactivo y/o Usuario y contraseña incorrecto');

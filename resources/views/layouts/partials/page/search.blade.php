@@ -1,5 +1,5 @@
 
-                            <form class="search-form" action="extra_search.html" method="GET">
+                            {!! Form::open(['class' => 'search-form']) !!}
                                 <div class="input-group">
                                     <input type="text" class="form-control" placeholder="Search here" name="query">
                                     <span class="input-group-btn">
@@ -8,4 +8,4 @@
                                         </a>
                                     </span>
                                 </div>
-                            </form>
+                            {!! Form::close() !!}

@@ -1,7 +1,7 @@
 <?php
 
-    Route::group(['namespace' => 'Auth'], function(){
+    Route::group(['namespace' => 'Sesion'], function(){
         
-        Route::post('iniciar-sesion','LoginController@login')->name('auth.login');
+        Route::post('iniciar-sesion','SesionController@login')->name('sesion');
 
     });

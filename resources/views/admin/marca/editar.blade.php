@@ -17,7 +17,7 @@
                 @foreach($marca as $row)
                 <input type="hidden" name="id" value="{!! $row->id !!}">
                 {!! Field::text('nombre',$row->nombre,['class' => 'form-control']) !!}
-                {!! Field::submit('ACTUALIZAR', ['class' => 'btn btn-primary']) !!}
+                {!! Form::submit('ACTUALIZAR', ['class' => 'btn default green-stripe']) !!}
                 @endforeach
                 {!! Form::close() !!}
                 </div>

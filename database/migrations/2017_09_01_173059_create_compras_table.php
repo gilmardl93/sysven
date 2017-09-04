@@ -15,6 +15,17 @@ class CreateComprasTable extends Migration
     {
         Schema::create('compras', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('idproducto');
+            $table->integer('idtipo')->nullable();
+            $table->integer('idpago')->nullable();
+            $table->integer('idprovedor')->nullable();
+            $table->string('serie')->nullable();
+            $table->string('numero')->nullable();
+            $table->integer('cantidad')->nullable();
+            $table->decimal('precio_unitario',6,2)->nullable();
+            $table->string('fecha')->nullable();
+            $table->integer('iduser');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

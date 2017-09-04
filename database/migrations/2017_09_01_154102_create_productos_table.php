@@ -17,12 +17,12 @@ class CreateProductosTable extends Migration
             $table->increments('id');
             $table->string('codigo');
             $table->string('nombre');
-            $table->decimal('precio',6,2);
             $table->integer('idpresentacion');
             $table->integer('idcategoria');
             $table->integer('idmarca');
-            $table->decimal('precio_compra',6,2);
             $table->decimal('precio_venta',6,2);
+            $table->integer('stock')->nullable();
+            $table->date('fecha');
             $table->softDeletes();
             $table->timestamps();
         });

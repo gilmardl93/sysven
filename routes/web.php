@@ -16,6 +16,10 @@ require __DIR__.'/admin/categoria/categoria.route.php';
 require __DIR__.'/admin/marca/marca.route.php';
 require __DIR__.'/admin/presentacion/presentacion.route.php';
 require __DIR__.'/admin/tipo/tipo.route.php';
+require __DIR__.'/admin/producto/producto.route.php';
+require __DIR__.'/admin/provedor/provedor.route.php';
+require __DIR__.'/admin/pago/pago.route.php';
+require __DIR__.'/admin/compra/compra.route.php';
 require __DIR__.'/auth/auth.route.php';
 
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');

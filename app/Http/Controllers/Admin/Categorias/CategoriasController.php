@@ -21,6 +21,14 @@ class CategoriasController extends Controller
         return $lista;
     }
 
+    public function listadoJson(Request $request)
+    {
+        $name = $request->varsearch ?:'';
+        $name = trim(strtoupper($name));
+        $categoria = Categoria::where('nombre','like',"%$name%")->select('id','nombre as text')->get();
+        return $categoria;
+    }
+
     public function registrar(RegistrarRequest $request)
     {
         $data = new Categoria();

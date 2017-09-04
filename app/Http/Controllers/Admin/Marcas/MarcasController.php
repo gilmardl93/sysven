@@ -21,6 +21,14 @@ class MarcasController extends Controller
         return $lista;
     }
 
+    public function listadoJson(Request $request)
+    {
+        $name = $request->varsearch ?:'';
+        $name = trim(strtoupper($name));
+        $marca = Marca::where('nombre','like',"%$name%")->select('id','nombre as text')->get();
+        return $marca;
+    }
+
     public function registrar(RegistrarRequest $request)
     {
         $data = new Marca();

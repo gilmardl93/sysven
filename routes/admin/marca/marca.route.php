@@ -6,6 +6,7 @@
         {
             Route::get('marca','MarcasController@index');
             Route::get('listado-marcas','MarcasController@listado');
+            Route::get('listado-marcas-json','MarcasController@listadoJson');
             Route::post('registrar-marca','MarcasController@registrar')->name('marca.registrar');
             Route::get('eliminar-marca/{id}','MarcasController@eliminar');
             Route::get('editar-marca/{id}','MarcasController@editar');

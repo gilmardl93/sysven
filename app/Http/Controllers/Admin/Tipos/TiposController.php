@@ -34,7 +34,7 @@ class TiposController extends Controller
     {
         Tipo::where('id',$id)->delete();
 
-        return redirect('tipo')->with('eliminar','tipo eliminada');
+        return redirect('tipo')->with('eliminar','tipo eliminado');
     }
 
     public function editar($id)

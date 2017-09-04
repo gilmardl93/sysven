@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Presentacion\RegistrarRequest;
 use App\Models\Presentacion;
+use Response;
 
 class PresentacionesController extends Controller
 {
@@ -19,6 +20,14 @@ class PresentacionesController extends Controller
         $presentacion = Presentacion::all();
         $lista['data'] = $presentacion;
         return $lista;
+    }
+
+    public function listadoJson(Request $request)
+    {
+        $name = $request->varsearch ?:'';
+        $name = trim(strtoupper($name));
+        $presentacion = Presentacion::where('nombre','like',"%$name%")->select('id','nombre as text')->get();
+        return $presentacion;
     }
 
     public function registrar(RegistrarRequest $request)

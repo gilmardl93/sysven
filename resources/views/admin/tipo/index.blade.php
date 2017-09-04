@@ -33,7 +33,7 @@
                 <div class="portlet-body">
                 {!! Form::open(['method' => 'POST', 'route' => 'tipo.registrar']) !!}
                 {!! Field::text('nombre',['class' => 'form-control']) !!}
-                {!! Field::submit('REGISTRAR', ['class' => 'btn btn-primary']) !!}
+                {!! Form::submit('REGISTRAR', ['class' => 'btn default green-stripe']) !!}
                 {!! Form::close() !!}
                 </div>
             </div>
