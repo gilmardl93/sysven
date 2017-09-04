@@ -18,32 +18,36 @@
             <div class="portlet light bordered">
                 <div class="portlet-title">ACTUALIZAR TIPO</div>
                 <div class="portlet-body">
-                {!! Form::open(['method' => 'POST', 'route' => 'tipo.actualizar']) !!}
+                {!! Form::open(['method' => 'POST', 'route' => 'producto.actualizar']) !!}
                 @foreach($producto as $row)
                 <input type="hidden" name="id" value="{!! $row->id !!}">
                 <div class="row">
                     <div class="col-md-6">
-                    {!! Field::text('codigo',$row->codigo,['class' => 'form-control']) !!}
+                    {!! Field::text('codigo', $row->codigo, ['class' => 'form-control']) !!}
                     </div>
                     <div class="col-md-6">
-                    {!! Field::text('nombre',$row->nombre,['class' => 'form-control']) !!}
+                    {!! Field::text('nombre', $row->nombre, ['class' => 'form-control']) !!}
                     </div>
                     <div class="col-md-6">
-                    {!! Field::text('precio_venta',$row->precio_venta,['class' => 'form-control']) !!}
+                    {!! Field::text('precio_venta', $row->precio_venta, ['class' => 'form-control']) !!}
                     </div>
                     <div class="col-md-6">
-                    {!! Field::text('stock',$row->stock,['class' => 'form-control']) !!}
-                    </div>
-                    <div class="col-md-6">
-                    {!! Field::select('presentacion',[],null,['id' => 'presentacion', 'class' => 'form-control']) !!}
-                    </div>
-                    <div class="col-md-6">
-                    {!! Field::select('marca',[],null,['id' => 'marca', 'class' => 'form-control']) !!}
-                    </div>
-                    <div class="col-md-6">
-                    {!! Form::select('categoria',[],null,['id' => 'categoria', 'class' => 'form-control']) !!}
+                    <label>Presentacion</label>
+                    {!! Form::select('presentacion',presentacion($row->idpresentacion),null,['id' => 'presentacion', 'class' => 'form-control']) !!}
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-6">
+                    <label>Marca</label>
+                    {!! Form::select('marca',marca($row->idmarca),null,['id' => 'marca', 'class' => 'form-control']) !!}
+                    </div>
+                    <div class="col-md-6">
+                    <label>Categoria</label>
+                    {!! Form::select('categoria',categoria($row->idcategoria),null,['id' => 'categoria', 'class' => 'form-control']) !!}
+                    </div>
+                </div>
+                <br>
+                {!! Form::submit('ACTUALIZAR', ['class' => 'btn default green-stripe']) !!}
                 @endforeach
                 {!! Form::close() !!}
                 </div>
@@ -75,7 +79,7 @@
             },
             cache: true
         },
-        placeholder : 'Ingrese nombre: ejemplo LIMA',
+        placeholder : 'Ingrese nombre: ejemplo PRESENTACION',
         minimumInputLength: 3,
         templateResult: format,
         templateSelection: format,
@@ -83,8 +87,8 @@
             return markup;
         } 
     });
-    function format(res){
-        var markup=res.text;
+    function format(res1){
+        var markup=res1.text;
         return markup;
     }
     
@@ -106,7 +110,7 @@
             },
             cache: true
         },
-        placeholder : 'Ingrese nombre: ejemplo LIMA',
+        placeholder : 'Ingrese nombre: ejemplo MARCA',
         minimumInputLength: 3,
         templateResult: format,
         templateSelection: format,
@@ -114,8 +118,8 @@
             return markup;
         } 
     });
-    function format(res){
-        var markup=res.text;
+    function format(res2){
+        var markup=res2.text;
         return markup;
     }
     
@@ -137,7 +141,7 @@
             },
             cache: true
         },
-        placeholder : 'Ingrese nombre: ejemplo LIMA',
+        placeholder : 'Ingrese nombre: ejemplo CATEGORIA',
         minimumInputLength: 3,
         templateResult: format,
         templateSelection: format,
@@ -145,8 +149,8 @@
             return markup;
         } 
     });
-    function format(res){
-        var markup=res.text;
+    function format(res3){
+        var markup=res3.text;
         return markup;
     }
 </script>

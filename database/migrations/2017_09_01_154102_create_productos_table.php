@@ -21,6 +21,7 @@ class CreateProductosTable extends Migration
             $table->integer('idcategoria');
             $table->integer('idmarca');
             $table->decimal('precio_venta',6,2);
+            $table->decimal('precio_compra',6,2)->nullable();
             $table->integer('stock')->nullable();
             $table->date('fecha');
             $table->softDeletes();

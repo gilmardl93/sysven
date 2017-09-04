@@ -94,7 +94,7 @@
                             <i class="widget-thumb-icon bg-green icon-bulb"></i>
                             <div class="widget-thumb-body">
                                 <span class="widget-thumb-subtitle">S/. </span>
-                                <span class="widget-thumb-body-stat" data-counter="counterup" data-value="">{!! $cantidad * $precio_unitario !!}</span>
+                                <span class="widget-thumb-body-stat" data-counter="counterup" data-value="">{!! $importe !!}</span>
                             </div>
                         </div>
                     </div>

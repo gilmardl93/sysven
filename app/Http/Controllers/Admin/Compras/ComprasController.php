@@ -9,6 +9,8 @@ use App\Http\Requests\Admin\Compra\RegistrarRequest;
 use App\Models\Compra;
 use App\Models\Tipo;
 use App\Models\Pago;
+use App\Models\Producto;
+use DB;
 
 class ComprasController extends Controller
 {
@@ -19,7 +21,7 @@ class ComprasController extends Controller
 
     public function listado()
     {
-        $compra = Compra::where('idtipo','<>','')->with(['producto','pago','tipo'])->get();
+        $compra = Compra::where('idtipo','<>','')->with(['pago','tipo'])->distinct('fecha,operacion, pago.nombre, tipo.nombre')->get();
         $lista['data'] = $compra;
         return $lista;
     }
@@ -29,21 +31,26 @@ class ComprasController extends Controller
         $tipo = Tipo::pluck('nombre','id');
         $pago = Pago::pluck('nombre','id');
         $compra = Compra::Disponible()->with('producto')->get();
-        $cantidad = Compra::where('iduser', Auth::user()->id)->sum('cantidad');
-        $precio_unitario = Compra::where('iduser', Auth::user()->id)->sum('precio_unitario');
-        return view('admin.compra.nuevo', compact(['compra','tipo','pago','cantidad','precio_unitario']));
+        $cantidad = Compra::Disponible()->sum('cantidad');
+        $precio_unitario = Compra::Disponible()->sum('precio_unitario');
+        $importe = Compra::Disponible()->sum('importe');
+        return view('admin.compra.nuevo', compact(['compra','tipo','pago','cantidad','precio_unitario','importe']));
     }
 
     public function registrar(RegistrarRequest $request)
     {
-        Compra::Disponible()->update([
+        $producto = Compra::Disponible()->get();
+        foreach($producto as $row):
+            Producto::where('id',$row->idproducto)->update(['stock' => $row->cantidad, 'precio_compra' => $row->precio_unitario]);
+
+            Compra::Disponible()->update([
             'idtipo' => $request->documento,
             'idprovedor' => $request->provedor,
             'idpago' => $request->pago,
-            'serie' => $request->serie,
-            'numero' => $request->numero,
+            'operacion' => $request->serie.'-'.$request->numero,
             'fecha' => $request->fecha
         ]);
+        endforeach;       
 
         return redirect('compra')->with('message','Se registro nueva compra');
     }
@@ -75,6 +82,7 @@ class ComprasController extends Controller
         $data->idproducto = $request->producto;
         $data->cantidad = $request->cantidad;
         $data->precio_unitario = $request->precio_unitario;
+        $data->importe = $request->precio_unitario * $request->cantidad;
         $data->iduser = Auth::user()->id;
         $data->save();
 

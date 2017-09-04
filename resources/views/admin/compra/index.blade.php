@@ -29,24 +29,20 @@
     <div class="row">
         <div class="col-md-12">
             <div class="portlet light bordered">
-                <div class="portlet-title">LISTA DE COMPRAS <a href="{!! url('nueva-compra') !!}" class="btn btn-warning">NUEVO</a></div>
+                <div class="portlet-title">LISTA DE COMPRAS <a href="{!! url('nueva-compra') !!}" class="btn default yellow-stripe">NUEVO</a></div>
                 <div class="portlet-body">
                 <table class="table table-bordered table-hover Compras" >
                     <thead>
                         <tr>
-                            <th> Producto </th>
-                            <th> Cantidad </th>
+                            <th> Fecha Compra </th>
+                            <th> Operación </th> 
                             <th> Tipo Documento </th>
                             <th> Tipo Pago </th>
-                            <th> Serie </th>
-                            <th> Numero </th>
-                            <th> Precio Unitario </th>
-                            <th> Importe General </th>
-                            <th> Fecha Compra </th>
                             <th> Accion </th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody>
+                    </tbody>
                 </table>
                 </div>
             </div>
@@ -78,25 +74,19 @@ $('.Compras').dataTable({
                     'targets': '_all'
                 },
                 {
-                    'targets':9,
+                    'targets':4,
                     'render': function ( data, type, row ) {
                       return ' \
-                      <a href="eliminar-compra/'+row.id * row.id+' " title="Eliminar" class="btn btn-icon-only red" ><i class="fa fa-trash"></i></a> \
+                      <a href="eliminar-compra/'+row.operacion+' " title="Eliminar" class="btn btn-icon-only red" ><i class="fa fa-trash"></i></a> \
                       ';
                     }
                 }
             ],
     "columns": [
-            { "data": "producto.nombre","defaultContent": "" },
-            { "data": "cantidad","defaultContent": "" },
+            { "data": "fecha","defaultContent": "" },
+            { "data": "operacion","defaultContent": "" },
             { "data": "tipo.nombre","defaultContent": "" },
             { "data": "pago.nombre","defaultContent": "" },
-            { "data": "serie","defaultContent": "" },
-            { "data": "numero","defaultContent": "" },
-            { "data": "precio_unitario","defaultContent": "" },
-            { "data": "precio_unitario * cantidad","defaultContent": "" },
-            { "data": "fecha","defaultContent": "" },
-
         ]
 
 

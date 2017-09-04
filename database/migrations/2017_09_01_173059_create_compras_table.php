@@ -19,10 +19,10 @@ class CreateComprasTable extends Migration
             $table->integer('idtipo')->nullable();
             $table->integer('idpago')->nullable();
             $table->integer('idprovedor')->nullable();
-            $table->string('serie')->nullable();
-            $table->string('numero')->nullable();
+            $table->string('operacion')->nullable();
             $table->integer('cantidad')->nullable();
             $table->decimal('precio_unitario',6,2)->nullable();
+            $table->decimal('importe',6,2)->nullable();
             $table->string('fecha')->nullable();
             $table->integer('iduser');
             $table->softDeletes();

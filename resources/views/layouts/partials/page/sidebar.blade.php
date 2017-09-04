@@ -39,12 +39,6 @@
                                 </ul>
                             </li>
                             <li class="nav-item start ">
-                                <a href="{!! url('tipo') !!}" class="nav-link ">
-                                    <i class="icon-bar-chart"></i>
-                                    <span class="title">Tipos de Recibos</span>
-                                </a>
-                            </li>
-                            <li class="nav-item start ">
                                 <a href="javascript:;" class="nav-link nav-toggle">
                                     <i class="icon-home"></i>
                                     <span class="title">COMPRAS</span>
@@ -68,6 +62,12 @@
                                         <a href="{!! url('pago') !!}" class="nav-link ">
                                             <i class="icon-bulb"></i>
                                             <span class="title">Tipo de Pago</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item start ">
+                                        <a href="{!! url('tipo') !!}" class="nav-link ">
+                                            <i class="icon-bar-chart"></i>
+                                            <span class="title">Recibos de Compra</span>
                                         </a>
                                     </li>
                                 </ul>

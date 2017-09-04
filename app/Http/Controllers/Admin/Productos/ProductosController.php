@@ -9,6 +9,7 @@ use App\Models\Producto;
 use App\Models\Marca;
 use App\Models\Categoria;
 use App\Models\Presentacion;
+use App\Models\Compra;
 
 class ProductosController extends Controller
 {
@@ -68,7 +69,14 @@ class ProductosController extends Controller
 
     public function actualizar(RegistrarRequest $request)
     {
-        Producto::where('id', $request->id)->update(['nombre' => strtoupper($request->nombre)]);
+        Producto::where('id', $request->id)->update([
+                'nombre' => strtoupper($request->nombre),
+                'codigo' => $request->codigo,
+                'precio_venta' => $request->precio_venta,
+                'idpresentacion' => $request->presentacion,
+                'idcategoria' => $request->categoria,
+                'idmarca' => $request->marca
+                ]);
 
         return redirect('producto')->with('message','Se actualizo producto');
     }
