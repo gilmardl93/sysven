@@ -52,16 +52,6 @@ var TableDatatablesButtons = function () {
                             }
                         }
                     ],
-            "columns": [
-                    { "data": "fecha","defaultContent": "" },
-                    { "data": "operacion","defaultContent": "" },
-                    { "data": "producto.nombre","defaultContent": "" },
-                    { "data": "tipo.nombre","defaultContent": "" },
-                    { "data": "pago.nombre","defaultContent": "" },
-                    { "data": "cantidad","defaultContent": "" },
-                    { "data": "precio_unitario","defaultContent": "" },
-                    { "data": "importe","defaultContent": "" },
-                ],
 
             // setup responsive extension: http://datatables.net/extensions/responsive/
             responsive: true,

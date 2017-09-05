@@ -22,6 +22,7 @@ require __DIR__.'/admin/pago/pago.route.php';
 require __DIR__.'/admin/compra/compra.route.php';
 require __DIR__.'/admin/venta/venta.route.php';
 require __DIR__.'/admin/empresa/empresa.route.php';
+require __DIR__.'/admin/inventario/inventario.route.php';
 require __DIR__.'/auth/auth.route.php';
 
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');

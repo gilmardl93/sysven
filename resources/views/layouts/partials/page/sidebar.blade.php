@@ -131,7 +131,7 @@
                                 </a>
                                 <ul class="sub-menu">
                                     <li class="nav-item start ">
-                                        <a href="{!! url('compra') !!}" class="nav-link ">
+                                        <a href="{!! url('inventario-general') !!}" class="nav-link ">
                                             <i class="icon-bar-chart"></i>
                                             <span class="title">General</span>
                                         </a>

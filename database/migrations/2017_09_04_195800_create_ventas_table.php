@@ -16,6 +16,8 @@ class CreateVentasTable extends Migration
         Schema::create('ventas', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('idproducto')->nullable();
+            $table->integer('idtipo')->nullable();
+            $table->integer('idcliente')->nullable();
             $table->integer('cantidad')->nullable();
             $table->decimal('monto',6,2)->nullable();
             $table->string('serie')->default('000')->nullable();
