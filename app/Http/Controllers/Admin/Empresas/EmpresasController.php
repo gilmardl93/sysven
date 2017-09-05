@@ -11,7 +11,7 @@ class EmpresasController extends Controller
 {
     public function index()
     {
-        $empresa = Empresa::all();
+        $empresa = Empresa::all(); 
         return view('admin.empresa.index', compact('empresa'));
     }
 

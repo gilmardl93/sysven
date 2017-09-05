@@ -22,7 +22,7 @@ class VentasController extends Controller
 
     public function listado()
     {
-        $venta = Venta::where('idtipo','<>','')->with(['pago','tipo','producto'])->get();
+        $venta = Venta::where('numero','<>','')->with(['producto'])->get();
         $lista['data'] = $venta;
         return $lista;
     }

@@ -32,7 +32,7 @@
             <div class="portlet light bordered">
                 <div class="portlet-title"><b>AGREGAR PRODUCTO</b></div>
                 <div class="portlet-body">
-                {!! Form::open(['method' => 'POST', 'route' => 'compra.agregar.producto']) !!}
+                {!! Form::open(['method' => 'POST', 'url' => 'agregar-producto-compra']) !!} 
                 <div class="row">
                     <div class="col-md-10">
                         {!! Form::select('producto',[], null, ['id' => 'Producto', 'class' => 'form-control']) !!}

@@ -21,6 +21,7 @@ class CreateVentasTable extends Migration
             $table->string('serie')->default('000')->nullable();
             $table->string('numero')->default('00000')->nullable();
             $table->boolean('anulado')->default(false);
+            $table->date('fecha')->nullable();
             $table->integer('idusuario');
             $table->timestamps();
         });

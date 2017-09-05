@@ -42,15 +42,18 @@ class ComprasController extends Controller
     {
         $producto = Compra::Disponible()->get();
         foreach($producto as $row):
-            Producto::where('id',$row->idproducto)->update(['stock' => $row->cantidad, 'precio_compra' => $row->precio_unitario]);
+            $stock = Producto::where('id',$row->idproducto)->select('stock')->get();
+            foreach($stock as $row2):
+                Producto::where('id',$row->idproducto)->update(['stock' => $row->cantidad + $row2->stock, 'precio_compra' => $row->precio_unitario]);
 
-            Compra::Disponible()->update([
-            'idtipo' => $request->documento,
-            'idprovedor' => $request->provedor,
-            'idpago' => $request->pago,
-            'operacion' => $request->serie.'-'.$request->numero,
-            'fecha' => $request->fecha
-        ]);
+                Compra::Disponible()->update([
+                'idtipo' => $request->documento,
+                'idprovedor' => $request->provedor,
+                'idpago' => $request->pago,
+                'operacion' => $request->serie.'-'.$request->numero,
+                'fecha' => $request->fecha
+                ]);
+            endforeach;
         endforeach;       
 
         return redirect('compra')->with('message','Se registro nueva compra');

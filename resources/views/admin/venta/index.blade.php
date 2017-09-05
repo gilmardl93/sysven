@@ -6,10 +6,10 @@
 @stop
 
 
-@section('title') COMPRAS
+@section('title') VENTAS
 @stop
 
-@section('titulo') COMPRAS
+@section('titulo') VENTAS
 @stop
 
 @section('content')
@@ -29,16 +29,14 @@
     <div class="row">
         <div class="col-md-12">
             <div class="portlet light bordered">
-                <div class="portlet-title">LISTA DE COMPRAS <a href="{!! url('nueva-compra') !!}" class="btn default yellow-stripe">NUEVO</a></div>
+                <div class="portlet-title">LISTA DE VENTAS <a href="{!! url('nueva-venta') !!}" class="btn default yellow-stripe">NUEVO</a></div>
                 <div class="portlet-body">
                 <table class="table table-bordered table-hover Compras" >
                     <thead>
                         <tr>
-                            <th> Fecha Compra </th>
+                            <th> Fecha Venta </th>
                             <th> Operación </th> 
                             <th> Producto </th> 
-                            <th> Tipo Documento </th>
-                            <th> Tipo Pago </th>
                             <th> Cantidad </th>
                             <th> Precio Unitario </th>
                             <th> Importe </th>
@@ -70,7 +68,7 @@ $('.Compras').dataTable({
         "lengthMenu": "_MENU_ registros"
     },
     "bProcessing": true,
-    "sAjaxSource": '{{ url('listado-compras') }}',
+    "sAjaxSource": '{{ url('listado-ventas') }}',
     "pagingType": "bootstrap_full_number",
     "columnDefs": [
                 { 
@@ -78,10 +76,10 @@ $('.Compras').dataTable({
                     'targets': '_all'
                 },
                 {
-                    'targets':8,
+                    'targets':6,
                     'render': function ( data, type, row ) {
                       return ' \
-                      <a href="eliminar-compra/'+row.id+' " title="Eliminar" class="btn btn-icon-only red" ><i class="fa fa-trash"></i></a> \
+                      <a href="eliminar-venta/'+row.id+' " title="Eliminar" class="btn btn-icon-only red" ><i class="fa fa-trash"></i></a> \
                       ';
                     }
                 }
@@ -90,8 +88,6 @@ $('.Compras').dataTable({
             { "data": "fecha","defaultContent": "" },
             { "data": "operacion","defaultContent": "" },
             { "data": "producto.nombre","defaultContent": "" },
-            { "data": "tipo.nombre","defaultContent": "" },
-            { "data": "pago.nombre","defaultContent": "" },
             { "data": "cantidad","defaultContent": "" },
             { "data": "precio_unitario","defaultContent": "" },
             { "data": "importe","defaultContent": "" },
