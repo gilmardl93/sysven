@@ -93,9 +93,6 @@
                                                     <li>
                                                         <a href="#tab_1_2" data-toggle="tab">Cambiar de Foto</a>
                                                     </li>
-                                                    <li>
-                                                        <a href="#tab_1_3" data-toggle="tab">Cambiar Contraseña</a>
-                                                    </li>
                                                 </ul>
                                             </div>
                                             <div class="portlet-body">
@@ -146,18 +143,6 @@
                                                         {!! Form::close() !!}
                                                     </div>
                                                     <!-- END CHANGE AVATAR TAB -->
-                                                    <!-- CHANGE PASSWORD TAB -->
-                                                    <div class="tab-pane" id="tab_1_3">
-                                                        <form action="#">
-                                                            {!! Field::password('password') !!}
-                                                            {!! Field::password('nuevo-password') !!}
-                                                            {!! Field::password('repetir-password') !!}
-                                                            <div class="margin-top-10">
-                                                            {!! Form::submit('ACTUALIZAR', ['class' => 'btn default green-stripe']) !!}
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                    <!-- END CHANGE PASSWORD TAB -->
                                                 </div>
                                             </div>
                                         </div>

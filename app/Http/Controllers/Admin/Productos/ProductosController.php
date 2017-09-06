@@ -31,7 +31,20 @@ class ProductosController extends Controller
         $name = trim(strtoupper($name));
         $producto = Producto::select('producto.id','producto.nombre as text','presentacion.nombre as pre')
                         ->join('presentacion','presentacion.id','=','producto.idpresentacion')
-                        ->where('producto.nombre','like',"%pro%")->get();     
+                        ->where('producto.nombre','like',"%$name%")->get();     
+        return $producto;
+    }
+
+    public function listadoDisponibleJson(Request $request)
+    {
+        $name = $request->varsearch ?:'';
+        $name = trim(strtoupper($name));
+        $producto = Producto::select('producto.id','producto.nombre as text','presentacion.nombre as pre')
+                        ->join('presentacion','presentacion.id','=','producto.idpresentacion')
+                        ->where('producto.nombre','like',"%$name%")
+                        ->where('stock','<>','')
+                        ->where('precio_unitario','<>','')
+                        ->get();     
         return $producto;
     }
 

@@ -34,8 +34,8 @@
                             <th> Presentacion </th>
                             <th> Precio Compra </th>
                             <th> Precio Venta </th>
-                            <th> Entrada </th>
-                            <th> Salida </th>
+                            <th> Stock </th>
+                            <th> Stock </th>
                         </tr>
                     </thead>
                     <tbody>

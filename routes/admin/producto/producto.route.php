@@ -13,5 +13,6 @@
             Route::post('actualizar-producto','ProductosController@actualizar')->name('producto.actualizar');
 
             Route::get('listado-productos-json','ProductosController@listadoJson')->name('producto.agregar');
+            Route::get('listado-productos-disponibles-json','ProductosController@listadoDisponibleJson')->name('producto.agregar');
         });        
     });

@@ -39,9 +39,11 @@
                         <br>
                         <div class="row">
                             <div class="col-md-4">
+                            <label>CANTIDAD</label>
                             {!! Form::text('cantidad', null, ['id' => 'cantidad','onkeyup' => 'ActualizarImporte();']) !!}
                             </div>
                             <div class="col-md-4">
+                            <label>PRECIO UNITARIO</label>
                             {!! Form::text('precio_unitario',null, ['id' => 'precio','onkeyup' => 'ActualizarImporte();']) !!}                            
                             </div>
                             <div class="col-md-4">
@@ -183,7 +185,7 @@
             cache: true
         },
         placeholder : 'Buscar Producto: ejemplo LIMA',
-        minimumInputLength: 3,
+        minimumInputLength: 1,
         templateResult: producto,
         templateSelection: producto,
         escapeMarkup: function(markup) {

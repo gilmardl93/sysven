@@ -15,13 +15,14 @@ class CreateVentasTable extends Migration
     {
         Schema::create('ventas', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('serie')->default('001')->nullable();
+            $table->string('numero')->default('00000')->nullable();
+            $table->string('operacion')->default('00000')->nullable();
             $table->integer('idproducto')->nullable();
             $table->integer('idtipo')->nullable();
             $table->integer('idcliente')->nullable();
             $table->integer('cantidad')->nullable();
             $table->decimal('monto',6,2)->nullable();
-            $table->string('serie')->default('000')->nullable();
-            $table->string('numero')->default('00000')->nullable();
             $table->boolean('anulado')->default(false);
             $table->date('fecha')->nullable();
             $table->integer('idusuario');

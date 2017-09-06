@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('paterno');
             $table->string('materno');
             $table->boolean('activo')->default(true);
+            $table->enum('role',['admin','venta','compra','almacen']);
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();

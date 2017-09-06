@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin\Ventas;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\Admin\Venta\RegistrarRequest;
 use App\Http\Requests\Admin\Venta\AgregarProductoRequest;
 use App\Models\Venta;
 use App\Models\Tipo;
@@ -32,10 +31,8 @@ class VentasController extends Controller
         $tipo = Tipo::pluck('nombre','id');
         $pago = Pago::pluck('nombre','id');
         $venta = Venta::Disponible()->with('producto')->get();
-        $cantidad = Venta::Disponible()->sum('cantidad');
-        $precio_unitario = Venta::Disponible()->sum('precio_unitario');
-        $importe = Venta::Disponible()->sum('importe');
-        return view('admin.venta.nuevo', compact(['venta','tipo','pago','cantidad','precio_unitario','importe']));
+        $monto = Venta::Disponible()->sum('monto');
+        return view('admin.venta.nuevo', compact(['venta','tipo','pago','monto']));
     }
 
     public function registrar(RegistrarRequest $request)
@@ -77,23 +74,26 @@ class VentasController extends Controller
         return redirect('venta')->with('message','Se actualizo venta');
     }
 
-    public function agregarproducto(AgregarProductoRequest $request)
+    public function agregarproducto(Request $request)
     {
-        $data = new Venta();
-        $data->idproducto = $request->producto;
-        $data->cantidad = $request->cantidad;
-        $data->precio_unitario = $request->precio_unitario;
-        $data->importe = $request->precio_unitario * $request->cantidad;
-        $data->iduser = Auth::user()->id;
-        $data->save();
+        
+        $producto = Producto::where('id',$request->producto)->get();
+        foreach($producto as $row):
+            $data = new Venta();
+            $data->idproducto = $request->producto;
+            $data->cantidad = $request->cantidad;
+            $data->monto = $row->precio_venta * $request->cantidad;
+            $data->idusuario = Auth::user()->id;
+            $data->save();
 
-        return redirect('nueva-compra')->with('message','Se agrego producto');
+            return redirect('nueva-venta')->with('message','Se agrego producto');
+        endforeach;
     }
 
     public function eliminarproducto($id)
     {
         Venta::where('id',$id)->delete();
 
-        return redirect('nueva-compra')->with('eliminar','Producto agregado eliminado');
+        return redirect('nueva-venta')->with('eliminar','Producto agregado eliminado');
     }
 }

@@ -7,10 +7,10 @@
 {!! Html::style('assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css') !!}
 @endsection
 
-@section('title') COMPRAS
+@section('title') VENTAS
 @stop
 
-@section('titulo') COMPRAS
+@section('titulo') VENTAS
 @stop
 
 @section('content')
@@ -32,20 +32,17 @@
             <div class="portlet light bordered">
                 <div class="portlet-title"><b>AGREGAR PRODUCTO</b></div>
                 <div class="portlet-body">
-                {!! Form::open(['method' => 'POST', 'route' => 'compra.agregar.producto']) !!}
+                {!! Form::open(['method' => 'POST', 'url' => 'agregar-producto-venta']) !!}
                 <div class="row">
                     <div class="col-md-10">
-                        {!! Form::select('producto',[], null, ['id' => 'Producto', 'class' => 'form-control']) !!}
-                        <br>
                         <div class="row">
-                            <div class="col-md-4">
-                            {!! Form::text('cantidad', null, ['id' => 'cantidad','onkeyup' => 'ActualizarImporte();']) !!}
+                            <div class="col-md-8">
+                            <label><b>BUSCAR PRODUCTO</b></label>
+                            {!! Form::select('producto',[], null, ['id' => 'Producto', 'class' => 'form-control']) !!}
                             </div>
                             <div class="col-md-4">
-                            {!! Form::text('precio_unitario',null, ['id' => 'precio','onkeyup' => 'ActualizarImporte();']) !!}                            
-                            </div>
-                            <div class="col-md-4">
-                                <div id="importe"></div>
+                            <label><b>CANTIDAD</b></label>
+                            {!! Form::text('cantidad', null, ['id' => 'cantidad','onkeyup' => 'ActualizarImporte();']) !!}                         
                             </div>
                         </div>                    
                     </div>
@@ -70,7 +67,7 @@
                             <th> Accion </th>
                         </tr>
                     </thead>
-                        @foreach($compra as $row)
+                        @foreach($venta as $row)
                         <tr>
                             <td> {!! $row->cantidad !!} </td>
                             <td> {!! $row->producto->nombre !!} </td>
@@ -94,7 +91,7 @@
                             <i class="widget-thumb-icon bg-green icon-bulb"></i>
                             <div class="widget-thumb-body">
                                 <span class="widget-thumb-subtitle">S/. </span>
-                                <span class="widget-thumb-body-stat" data-counter="counterup" data-value="">{!! $importe !!}</span>
+                                <span class="widget-thumb-body-stat" data-counter="counterup" data-value="">{!! $monto !!}</span>
                             </div>
                         </div>
                     </div>
@@ -146,28 +143,18 @@
 {!! Html::script('assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') !!}
 <script>
 
-
     $('.date-picker').datepicker({
         rtl: App.isRTL(),
         orientation: "left",
         autoclose: true
     });
 
-    function ActualizarImporte()
-    {
-        var precio = document.getElementById("precio").value;
-        var cantidad = document.getElementById("cantidad").value;
-        var suma = parseFloat(precio) * parseInt(cantidad);
-        document.getElementById("importe").innerHTML = "<h2>Importe: "+ suma +"</h2>";
-    }
-
-
     $.fn.select2.defaults.set("theme", "bootstrap");
     
     $("#Producto").select2({
         width:'auto',
         ajax: {
-            url: '{{ url("listado-productos-json") }}',
+            url: '{{ url("listado-productos-disponibles-json") }}',
             dataType: 'json',
             delay: 250,
             data: function(params) {
@@ -183,7 +170,7 @@
             cache: true
         },
         placeholder : 'Buscar Producto: ejemplo LIMA',
-        minimumInputLength: 3,
+        minimumInputLength: 1,
         templateResult: producto,
         templateSelection: producto,
         escapeMarkup: function(markup) {
