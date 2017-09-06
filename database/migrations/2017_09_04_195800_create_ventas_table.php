@@ -17,7 +17,6 @@ class CreateVentasTable extends Migration
             $table->increments('id');
             $table->string('serie')->default('001')->nullable();
             $table->string('numero')->default('00000')->nullable();
-            $table->string('operacion')->default('00000')->nullable();
             $table->integer('idproducto')->nullable();
             $table->integer('idtipo')->nullable();
             $table->integer('idcliente')->nullable();
@@ -26,6 +25,7 @@ class CreateVentasTable extends Migration
             $table->boolean('anulado')->default(false);
             $table->date('fecha')->nullable();
             $table->integer('idusuario');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

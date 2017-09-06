@@ -30,6 +30,12 @@
                                             <span class="title">Restringir</span>
                                         </a>
                                     </li>
+                                    <li class="nav-item start open">
+                                        <a href="{!! url('tiendas') !!}" class="nav-link ">
+                                            <i class="icon-graph"></i>
+                                            <span class="title">Tienda</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                             <li class="nav-item start ">

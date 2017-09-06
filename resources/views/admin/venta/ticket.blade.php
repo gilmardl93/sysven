@@ -7,10 +7,10 @@
 {!! Html::style('assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css') !!}
 @endsection
 
-@section('title') VENTAS
+@section('title') TICKETS
 @stop
 
-@section('titulo') VENTAS
+@section('titulo') TICKETS
 @stop
 
 @section('content')
@@ -32,25 +32,25 @@
             <div class="portlet light bordered">
                 <div class="portlet-title"><b>AGREGAR PRODUCTO</b></div>
                 <div class="portlet-body">
-                {!! Form::open(['method' => 'POST', 'url' => 'agregar-producto-venta']) !!}
-                <div class="row">
-                    <div class="col-md-10">
-                        <div class="row">
-                            <div class="col-md-8">
-                            <label><b>BUSCAR PRODUCTO</b></label>
-                            {!! Form::select('producto',[], null, ['id' => 'Producto', 'class' => 'form-control']) !!}
-                            </div>
-                            <div class="col-md-4">
-                            <label><b>CANTIDAD</b></label>
-                            {!! Form::text('cantidad', null, ['id' => 'cantidad','onkeyup' => 'ActualizarImporte();']) !!}                         
-                            </div>
-                        </div>                    
+                    {!! Form::open(['method' => 'POST', 'url' => 'registrar-producto-venta-ticket']) !!}
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="row">
+                                <div class="col-md-8">
+                                <label><b>BUSCAR PRODUCTO</b></label>
+                                {!! Form::select('producto',[], null, ['id' => 'Producto', 'class' => 'form-control']) !!}
+                                </div>
+                                <div class="col-md-2">
+                                <label><b>CANTIDAD</b></label>
+                                {!! Form::text('cantidad') !!}                         
+                                </div>
+                            </div>                    
+                        </div>
+                        <div class="col-md-2">
+                        {!! Form::submit('AGREGAR', ['class' => 'btn default green-stripe']) !!}
+                        </div>
                     </div>
-                    <div class="col-md-2">
-                    {!! Form::submit('AGREGAR', ['class' => 'btn default green-stripe']) !!}
-                    </div>
-                </div>
-                {!! Form::close() !!}
+                    {!! Form::close() !!}
                 </div>
             </div>
 
@@ -71,9 +71,9 @@
                         <tr>
                             <td> {!! $row->cantidad !!} </td>
                             <td> {!! $row->producto->nombre !!} </td>
-                            <td> {!! $row->precio_unitario !!}</td>
-                            <td> {!! $row->cantidad * $row->precio_unitario !!} </td>
-                            <td> <a href="eliminar-producto-agregado/{!! $row->id !!} " title="Eliminar" class="btn btn-icon-only red" ><i class="fa fa-trash"></i></a> </td>
+                            <td> {!! $row->producto->precio_venta !!}</td>
+                            <td> {!! $row->cantidad * $row->producto->precio_venta !!} </td>
+                            <td> <a href="eliminar-producto-agregado-boleta/{!! $row->id !!} " title="Eliminar" class="btn btn-icon-only red" ><i class="fa fa-trash"></i></a> </td>
                         </tr>
                         @endforeach
                     <tbody>
@@ -97,38 +97,30 @@
                     </div>
                 </div>
                 <div class="portlet-body">
-                    {!! Form::open(['method' => 'POST', 'route' => 'compra.registrar']) !!}
+                    {!! Form::open(['method' => 'POST', 'url' => 'registrar-ticket']) !!}
                     <div class="row">
                         <div class="col-md-6">
-                            <label><b>TIPO DE DOCUMENTO</b></label>
-                            {!! Form::select('documento',$tipo , null, ['class' => 'form-control']) !!}
+                            <label>OPERACION</label>
+                            <input type="text" value="001 - <?php echo str_pad($max+1, 6, '0', STR_PAD_LEFT); ?>" disabled>
                         </div>
                         <div class="col-md-6">
-                            <label><b>TIPO DE PAGO</b></label>
-                            {!! Form::select('pago',$pago , null, ['class' => 'form-control']) !!}
-                        </div>
-                        <div class="col-md-6">
-                            {!! Field::text('serie') !!}
-                        </div>
-                        <div class="col-md-6">
-                            {!! Field::text('numero') !!}
-                        </div>
-                        <div class="col-md-6">
-                            <label ><b>FECHA DE COMPRA</b></label>
-                            <input class="form-control form-control-inline input-medium date-picker" size="16" type="text" name="fecha" >
+                            <label>FECHA</label>
+                            {!! Form::text('fecha_compra', date('Y-m-d')  ,['disabled' => true])!!}
                         </div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-md-12">
-                            <label><b>BUSCAR PROVEDOR</b></label>
-                            {!! Form::select('provedor',[], null, ['id' => 'Provedor', 'class' => 'form-control']) !!}
+                            <label><b>BUSCAR CLIENTE</b></label>
+                            {!! Form::select('provedor',[], null, ['id' => 'Clientes', 'class' => 'form-control']) !!}
                         </div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-md-12">
                             {!! Form::submit('REGISTRAR COMPRA',['class' => 'btn default green-stripe']) !!}
+                            <a href="{!! url('nuevo-cliente') !!}" class="btn default yellow-stripe">NUEVO CLIENTE</a>
+                            <a href="{!! url('venta') !!}" class="btn default red-stripe">ATRAS</a>
                         </div>
                     </div>
                     {!! Form::close() !!}
@@ -182,10 +174,11 @@
         return markup;
     }
 
-    $("#Provedor").select2({
+    
+    $("#Clientes").select2({
         width:'auto',
         ajax: {
-            url: '{{ url("listado-provedores-json") }}',
+            url: '{{ url("listado-productos-disponibles-json") }}',
             dataType: 'json',
             delay: 250,
             data: function(params) {
@@ -200,16 +193,16 @@
             },
             cache: true
         },
-        placeholder : 'Buscar Provedor: ejemplo LIMA',
-        minimumInputLength: 3,
-        templateResult: format,
-        templateSelection: format,
+        placeholder : 'Buscar Producto: ejemplo LIMA',
+        minimumInputLength: 1,
+        templateResult: producto,
+        templateSelection: producto,
         escapeMarkup: function(markup) {
             return markup;
         } 
     });
-    function format(res){
-        var markup=res.text;
+    function producto(pro){
+        var markup = pro.text + " - " + pro.pre;
         return markup;
     }
 </script>

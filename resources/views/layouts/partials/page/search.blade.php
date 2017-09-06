@@ -1,7 +1,7 @@
 
-                            {!! Form::open(['class' => 'search-form']) !!}
+                            {!! Form::open(['class' => 'search-form', 'method' => 'POST', 'url' => 'buscar-producto']) !!}
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search here" name="query">
+                                    <input type="text" class="form-control" placeholder="Ingresar nombre de producto" name="query">
                                     <span class="input-group-btn">
                                         <a href="javascript:;" class="btn md-skip submit">
                                             <i class="fa fa-search"></i>

@@ -3,12 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 
 class Venta extends Model
 {
+    use softDeletes;
 
     protected $table = "ventas";
+
+    protected $dates = ['deleted_at']; 
 
     public function producto()
     {
@@ -22,7 +26,7 @@ class Venta extends Model
 
     public function scopeDisponible($cadenaSQL)
     {
-        return $cadenaSQL->where('operacion','00000')
+        return $cadenaSQL->where('numero','00000')
                         ->where('idusuario',Auth::user()->id);
     }
 }

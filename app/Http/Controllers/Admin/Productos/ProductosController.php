@@ -42,8 +42,8 @@ class ProductosController extends Controller
         $producto = Producto::select('producto.id','producto.nombre as text','presentacion.nombre as pre')
                         ->join('presentacion','presentacion.id','=','producto.idpresentacion')
                         ->where('producto.nombre','like',"%$name%")
-                        ->where('stock','<>','')
-                        ->where('precio_unitario','<>','')
+                        ->where('producto.stock','<>','')
+                        ->where('producto.precio_venta','<>','')
                         ->get();     
         return $producto;
     }
