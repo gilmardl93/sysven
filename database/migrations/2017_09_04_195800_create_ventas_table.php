@@ -19,11 +19,15 @@ class CreateVentasTable extends Migration
             $table->string('numero')->default('00000')->nullable();
             $table->integer('idproducto')->nullable();
             $table->integer('idtipo')->nullable();
+            $table->integer('idpago')->nullable();
+            $table->string('descuento')->nullable();
             $table->integer('idcliente')->nullable();
+            $table->integer('idtienda')->nullable();
             $table->integer('cantidad')->nullable();
             $table->decimal('monto',6,2)->nullable();
             $table->boolean('anulado')->default(false);
-            $table->date('fecha')->nullable();
+            $table->string('motivo')->nullable();
+            $table->dateTime('fecha')->nullable();
             $table->integer('idusuario');
             $table->softDeletes();
             $table->timestamps();

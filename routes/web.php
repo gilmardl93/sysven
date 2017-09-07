@@ -21,10 +21,13 @@ require __DIR__.'/admin/provedor/provedor.route.php';
 require __DIR__.'/admin/pago/pago.route.php';
 require __DIR__.'/admin/compra/compra.route.php';
 require __DIR__.'/admin/venta/venta.route.php';
+require __DIR__.'/admin/venta/reporte.route.php';
 require __DIR__.'/admin/empresa/empresa.route.php';
 require __DIR__.'/admin/inventario/inventario.route.php';
 require __DIR__.'/admin/tienda/tienda.route.php';
 require __DIR__.'/admin/cliente/cliente.route.php';
+require __DIR__.'/admin/usuario/usuario.route.php';
+require __DIR__.'/admin/caja/caja.route.php';
 require __DIR__.'/auth/auth.route.php';
 
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');

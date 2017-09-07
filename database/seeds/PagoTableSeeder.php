@@ -13,5 +13,7 @@ class PagoTableSeeder extends Seeder
     public function run()
     {
         Pago::create(['nombre' => 'EFECTIVO']);
+        Pago::create(['nombre' => 'DEBITO']);
+        Pago::create(['nombre' => 'CREDITO']);
     }
 }

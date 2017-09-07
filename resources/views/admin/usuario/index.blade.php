@@ -6,10 +6,10 @@
 @stop
 
 
-@section('title') MARCAS
+@section('title') USUARIOS
 @stop
 
-@section('titulo') MARCAS
+@section('titulo') USUARIOS
 @stop
 
 @section('content')
@@ -27,25 +27,38 @@
     @endif
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="portlet light bordered">
-                <div class="portlet-title">REGISTRAR MARCA</div>
+                <div class="portlet-title">REGISTRAR USUARIO</div>
                 <div class="portlet-body">
-                {!! Form::open(['method' => 'POST', 'route' => 'marca.registrar']) !!}
-                {!! Field::text('nombre',['class' => 'form-control']) !!}
+                {!! Form::open(['method' => 'POST', 'route' => 'usuario.registrar']) !!}
+                {!! Field::text('username') !!}
+                {!! Field::password('password') !!}
+                {!! Field::text('nombres') !!}
+                {!! Field::text('paterno') !!}
+                {!! Field::text('materno') !!}
+                <label>ROL</label>
+                {!! Form::select('rol',$rol, null, ['class' => 'form-control']) !!}
+                <br>
+                <label>TIENDA</label>
+                {!! Form::select('tienda', $tienda, null, ['class' => 'form-control']) !!}
+                <br>
                 {!! Form::submit('REGISTRAR', ['class' => 'btn default green-stripe']) !!}
                 {!! Form::close() !!}
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-8">
             <div class="portlet light bordered">
-                <div class="portlet-title">LISTA DE MARCAS</div>
+                <div class="portlet-title">LISTA DE USUARIOS</div>
                 <div class="portlet-body">
                 <table class="table table-bordered table-hover Marcas" >
                     <thead>
                         <tr>
-                            <th> Nombre </th>
+                            <th> Usuario </th>
+                            <th> Tienda </th>
+                            <th> Rol </th>
+                            <th> Persona </th>
                             <th> Accion </th>
                         </tr>
                     </thead>
@@ -73,7 +86,7 @@ $('.Marcas').dataTable({
         "lengthMenu": "_MENU_ registros"
     },
     "bProcessing": true,
-    "sAjaxSource": '{{ url('listado-marcas') }}',
+    "sAjaxSource": '{{ url('listado-usuarios') }}',
     "pagingType": "bootstrap_full_number",
     "columnDefs": [
                 { 
@@ -81,20 +94,27 @@ $('.Marcas').dataTable({
                     'targets': '_all'
                 },
                 {
-                    'targets':1,
+                    'targets':3,
+                    'render': function ( data, type, row ) {
+                      return row.paterno+' '+row.materno+' '+row.nombres;
+                    }
+                },
+                {
+                    'targets':4,
                     'render': function ( data, type, row ) {
                       return ' \
-                      <a href="editar-marca/'+row.id+'" title="Editar"class="btn btn-icon-only green-haze" ><i class="fa fa-edit"></i></a> \
-                      <a href="eliminar-marca/'+row.id+' " title="Eliminar" class="btn btn-icon-only red" ><i class="fa fa-trash"></i></a> \
+                      <a href="editar-usuario/'+row.id+'" title="Editar"class="btn btn-icon-only green-haze" ><i class="fa fa-edit"></i></a> \
+                      <a href="eliminar-usuario/'+row.id+' " title="Eliminar" class="btn btn-icon-only red" ><i class="fa fa-trash"></i></a> \
                       ';
                     }
                 }
             ],
     "columns": [
-            { "data": "nombre","defaultContent": "" },
+            { "data": "username","defaultContent": "" },
+            { "data": "tienda.nombre","defaultContent": "" },
+            { "data": "rol.nombre","defaultContent": "" },
 
         ]
-
 
 });
 </script>

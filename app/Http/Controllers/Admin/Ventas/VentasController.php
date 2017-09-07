@@ -6,17 +6,20 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Admin\Venta\ClienteRequest;
+use App\Http\Requests\Admin\Venta\AnularBoletaRequest;
 use App\Models\Venta;
 use App\Models\Tipo;
 use App\Models\Pago;
 use App\Models\Producto;
+use App\Models\Caja;
 use DB;
 
 class VentasController extends Controller
 {
     public function index()
     {
-        return view('admin.venta.index');
+        $caja = Caja::AperturaAbierta()->count();
+        return view('admin.venta.index', compact('caja'));
     }
 
     public function listado()
@@ -73,7 +76,8 @@ class VentasController extends Controller
             'numero'    => $numero + 1,
             'idtipo'    => 1,
             'idcliente' => $request->idcliente,
-            'fecha'     => date('Y-m-d')
+            'idtienda'  => Auth::user()->idtienda,
+            'fecha'     => date('Y-m-d H:i:s')
         ]);
 
         return redirect('boleta')->with('message','Se registro nueva boleta');
@@ -126,7 +130,8 @@ class VentasController extends Controller
             'numero'    => $numero + 1,
             'idtipo'    => 2,
             'idcliente' => $request->idcliente,
-            'fecha'     => date('Y-m-d')
+            'idtienda'  => Auth::user()->idtienda,
+            'fecha'     => date('Y-m-d H:i:s')
         ]);
 
         return redirect('boleta')->with('message','Se registro nueva factura');
@@ -179,9 +184,69 @@ class VentasController extends Controller
             'numero'    => $numero + 1,
             'idtipo'    => 3,
             'idcliente' => $request->idcliente,
-            'fecha'     => date('Y-m-d')
+            'idtienda'  => Auth::user()->idtienda,
+            'fecha'     => date('Y-m-d H:i:s')
         ]);
 
         return redirect('ticket')->with('message','Se registro nuevo ticket');
+    }
+
+    public function anular()
+    {
+        return view('admin.venta.anular');
+    }
+
+    public function anularBoleta()
+    {
+        return view('admin.venta.anular_boleta');
+    }
+
+    public function BoletaAnulada(AnularBoletaRequest $request)
+    {
+        $existe = Venta::ExisteBoleta($request->numero)->count();
+        if($existe >= 1)
+        {
+            $motivo = Venta::ExisteBoleta($request->numero)->update(['motivo' => $request->motivo , 'anulado' => true ]);
+            return redirect('anular-boleta')->with('eliminar','Se anulo Boleta: 001-'.str_pad($request->numero, 6, "0", STR_PAD_LEFT));
+        }else
+        {
+            return redirect('anular-boleta')->with('eliminar','El numero de boleta no existe. Ingrese nuevamente.');
+        }
+    }
+
+    public function anularFactura()
+    {
+        return view('admin.venta.anular_factura');
+    }
+
+    public function FacturaAnulada(AnularBoletaRequest $request)
+    {
+        $existe = Venta::ExisteFactura($request->numero)->count();
+        if($existe >= 1)
+        {
+            $motivo = Venta::ExisteBoleta($request->numero)->update(['motivo' => $request->motivo , 'anulado' => true ]);
+            return redirect('anular-factura')->with('eliminar','Se anulo Boleta: 001-'.str_pad($request->numero, 6, "0", STR_PAD_LEFT));
+        }else
+        {
+            return redirect('anular-factura')->with('eliminar','El numero de boleta no existe. Ingrese nuevamente.');
+        }
+    }
+
+    public function anularTicket()
+    {
+        return view('admin.venta.anular_ticket');
+    }
+
+    public function TicketAnulada(AnularBoletaRequest $request)
+    {
+        $existe = Venta::ExisteTicket($request->numero)->count();
+        if($existe >= 1)
+        {
+            $motivo = Venta::ExisteBoleta($request->numero)->update(['motivo' => $request->motivo , 'anulado' => true ]);
+            return redirect('anular-ticket')->with('eliminar','Se anulo Boleta: 001-'.str_pad($request->numero, 6, "0", STR_PAD_LEFT));
+        }else
+        {
+            return redirect('anular-ticket')->with('eliminar','El numero de boleta no existe. Ingrese nuevamente.');
+        }
     }
 }

@@ -90,9 +90,6 @@
                                                     <li class="active">
                                                         <a href="#tab_1_1" data-toggle="tab">Empresa</a>
                                                     </li>
-                                                    <li>
-                                                        <a href="#tab_1_2" data-toggle="tab">Cambiar de Foto</a>
-                                                    </li>
                                                 </ul>
                                             </div>
                                             <div class="portlet-body">
@@ -115,35 +112,6 @@
                                                         {!! Form::close() !!}
                                                     </div>
                                                     <!-- END PERSONAL INFO TAB -->
-                                                    <!-- CHANGE AVATAR TAB -->
-                                                    <div class="tab-pane" id="tab_1_2">
-                                                        <p> Aquí podrá cambiar el logo de la empresa.</p>
-                                                        {!! Form::open(['method' => 'POST', 'file' => 'true', 'route' => 'empresa.foto']) !!}
-                                                            <div class="form-group">
-                                                                <div class="fileinput fileinput-new" data-provides="fileinput">
-                                                                    <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                                                                        <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt="" /> </div>
-                                                                    <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"> </div>
-                                                                    <div>
-                                                                        <span class="btn default btn-file">
-                                                                            <span class="fileinput-new"> Seleccione imagen </span>
-                                                                            <span class="fileinput-exists"> Cambiar </span>
-                                                                            <input type="file" name="file"> </span>
-                                                                        <a href="javascript:;" class="btn default fileinput-exists" data-dismiss="fileinput"> Remover </a>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="clearfix margin-top-10">
-                                                                    <span class="label label-danger">NOTA! </span>
-                                                                    <span>  Recuerde que esta imagen es lo que saldra en sus recibos.</span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="margin-top-10">
-                                                                {!! Form::submit('ACTUALIZAR', ['class' => 'btn default green-stripe']) !!}
-                                                            </div>
-                                                        {!! Form::close() !!}
-                                                    </div>
-                                                    <!-- END CHANGE AVATAR TAB -->
-                                                </div>
                                             </div>
                                         </div>
                                     </div>

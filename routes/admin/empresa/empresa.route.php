@@ -12,6 +12,5 @@
             Route::get('eliminar-empresa/{id}','EmpresasController@eliminar');
             Route::get('editar-empresa/{id}','EmpresasController@editar');
             Route::post('actualizar-empresa','EmpresasController@actualizar')->name('empresa.actualizar');
-            Route::post('foto-empresa','EmpresasController@foto')->name('empresa.foto');
         });        
     });

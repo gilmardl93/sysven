@@ -12,6 +12,6 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        User::create(['username' => 'gmoreno', 'password' => bcrypt('123456'), 'nombres' => 'Gilmar Marquez', 'paterno' => 'Moreno', 'materno' => 'Mejia']);
+        User::create(['username' => 'gmoreno', 'password' => bcrypt('123456'), 'nombres' => 'Gilmar Marquez', 'paterno' => 'Moreno', 'materno' => 'Mejia', 'idtienda' => 1, 'idrol' => 1]);
     }
 }

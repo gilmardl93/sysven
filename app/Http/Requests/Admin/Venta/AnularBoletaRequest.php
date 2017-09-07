@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Admin\Usuario;
+namespace App\Http\Requests\Admin\Venta;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RegistrarRequest extends FormRequest
+class AnularBoletaRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,13 +24,8 @@ class RegistrarRequest extends FormRequest
     public function rules()
     {
         return [
-            'username' => 'required|min:3',
-            'password' => 'required|min:3',
-            'nombres' => 'required',
-            'paterno' => 'required',
-            'materno' => 'required',
-            'tienda' => 'required',
-            'rol' => 'required'
+            'numero' => 'required',
+            'motivo' => 'required'
         ];
     }
 }

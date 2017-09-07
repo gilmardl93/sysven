@@ -178,7 +178,7 @@
     $("#Clientes").select2({
         width:'auto',
         ajax: {
-            url: '{{ url("listado-productos-disponibles-json") }}',
+            url: '{{ url("listado-clientes-json") }}',
             dataType: 'json',
             delay: 250,
             data: function(params) {
@@ -202,7 +202,7 @@
         } 
     });
     function producto(pro){
-        var markup = pro.text + " - " + pro.pre;
+        var markup = pro.text + " - " + pro.ruc;
         return markup;
     }
 </script>

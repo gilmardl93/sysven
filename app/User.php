@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\Tienda;
+use App\Models\Rol;
 
 class User extends Authenticatable
 {
@@ -26,4 +28,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function tienda()
+    {
+        return $this->hasOne(Tienda::class,'id','idtienda');
+    }
+
+    public function rol()
+    {
+        return $this->hasOne(Rol::class,'id','idrol');
+    }
 }

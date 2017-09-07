@@ -11,7 +11,6 @@
                                 <div class="widget-thumb-wrap">
                                     <i class="widget-thumb-icon bg-green icon-bulb"></i>
                                     <div class="widget-thumb-body">
-                                        <span class="widget-thumb-subtitle">USD</span>
                                         <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">{!! $compras !!}</span>
                                     </div>
                                 </div>
@@ -25,7 +24,6 @@
                                 <div class="widget-thumb-wrap">
                                     <i class="widget-thumb-icon bg-red icon-layers"></i>
                                     <div class="widget-thumb-body">
-                                        <span class="widget-thumb-subtitle">USD</span>
                                         <span class="widget-thumb-body-stat" data-counter="counterup" data-value="1,293">{!! $ventas !!}</span>
                                     </div>
                                 </div>
@@ -39,7 +37,6 @@
                                 <div class="widget-thumb-wrap">
                                     <i class="widget-thumb-icon bg-purple icon-screen-desktop"></i>
                                     <div class="widget-thumb-body">
-                                        <span class="widget-thumb-subtitle">USD</span>
                                         <span class="widget-thumb-body-stat" data-counter="counterup" data-value="815">{!! $productos !!}</span>
                                     </div>
                                 </div>
@@ -53,7 +50,6 @@
                                 <div class="widget-thumb-wrap">
                                     <i class="widget-thumb-icon bg-blue icon-bar-chart"></i>
                                     <div class="widget-thumb-body">
-                                        <span class="widget-thumb-subtitle">USD</span>
                                         <span class="widget-thumb-body-stat" data-counter="counterup" data-value="5,071">{!! $clientes !!}</span>
                                     </div>
                                 </div>
@@ -71,6 +67,7 @@
         </div>
     </div>
     <div class="portlet-body">
+        @if($caja == 1)
         <div class="mt-element-step">
             <div class="row step-no-background">
                 <div class="col-md-4 mt-step-col">
@@ -90,6 +87,12 @@
                 </div>
             </div>
         </div>
+        @else
+            <div class="note note-danger">
+                <h4 class="block">Para poder realizar ventas debe aperturar Caja</h4>
+                <p> <a href="{!! url('aperturar-caja') !!}" class="btn default red-stripe">APERTURAR CAJA</a> </p>
+            </div>
+        @endif
     </div>
 </div>
 @endsection

@@ -23,7 +23,6 @@ class CreateEmpresasTable extends Migration
             $table->string('pagina_web')->nullable();
             $table->string('direccion');
             $table->string('distrito');
-            $table->string('imagen')->nullable();
             $table->timestamps();
         });
     }

@@ -12,6 +12,8 @@
             Route::get('editar-producto/{id}','ProductosController@editar');
             Route::post('actualizar-producto','ProductosController@actualizar')->name('producto.actualizar');
 
+            Route::post('buscar-producto','ProductosController@buscar');
+
             Route::get('listado-productos-json','ProductosController@listadoJson')->name('producto.agregar');
             Route::get('listado-productos-disponibles-json','ProductosController@listadoDisponibleJson')->name('producto.agregar');
         });        

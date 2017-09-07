@@ -95,4 +95,10 @@ class ProductosController extends Controller
 
         return redirect('producto')->with('message','Se actualizo producto');
     }
+
+    public function buscar(Request $request)
+    {
+        $producto = Producto::where('nombre','like',"%$request->producto%")->with(['categoria','marca','presentacion'])->get();
+        return view('admin.producto.buscar', compact('producto'));
+    }
 }

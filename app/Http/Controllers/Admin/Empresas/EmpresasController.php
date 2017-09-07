@@ -52,15 +52,4 @@ class EmpresasController extends Controller
                     ]);
         return redirect('empresa')->with('message','Se actualizo empresa');
     }
-
-    public function foto(Request $request)
-    {
-        if ($request->hasFile('file')) {
-            $request->file('file')->store('fotos','public');
-        }
-
-        Empresa::where()->update(['imagen' => $request->file]);
-
-        return redirect('empresa')->with('message','Se actualizo empresa'); 
-    }
 }

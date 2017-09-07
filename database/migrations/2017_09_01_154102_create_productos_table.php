@@ -22,7 +22,7 @@ class CreateProductosTable extends Migration
             $table->integer('idmarca');
             $table->decimal('precio_venta',6,2)->nullable();
             $table->decimal('precio_compra',6,2)->nullable();
-            $table->integer('stock')->nullable();
+            $table->integer('stock')->default(0)->nullable();
             $table->date('fecha')->nullable();
             $table->softDeletes();
             $table->timestamps();

@@ -1,46 +1,39 @@
 @extends('layouts.admin')
 
-@section('title') VENTAS
+@section('title') VENTAS ANULAR
 @stop
 
-@section('titulo') VENTAS
+@section('titulo') VENTAS ANULAR
 @stop
 
 @section('content')
 <div class="portlet light portlet-fit bordered">
     <div class="portlet-title">
         <div class="caption">
-            <i class=" icon-layers font-green"></i>
-            <span class="caption-subject font-green bold uppercase">SELECCIONE TIPO DE VENTA</span>
+            <i class=" icon-layers font-red"></i>
+            <span class="caption-subject font-red bold uppercase">SELECCIONE TIPO DE VENTA PARA ANULAR</span>
         </div>
     </div>
     <div class="portlet-body">
-        @if($caja == 1)
         <div class="mt-element-step">
             <div class="row step-no-background">
                 <div class="col-md-4 mt-step-col">
                     <div class="mt-step-number font-grey-cascade">1</div>
                     <div class="mt-step-title uppercase font-grey-cascade">BOLETA</div>
-                    <div class="mt-step-content font-grey-cascade"><a href="{!! url('boleta') !!}" class="btn default blue-stripe btn-block">CLICK AQUI</a></div>
+                    <div class="mt-step-content font-grey-cascade"><a href="{!! url('anular-boleta') !!}" class="btn default blue-stripe btn-block">CLICK AQUI</a></div>
                 </div>
                 <div class="col-md-4 mt-step-col error">
                     <div class="mt-step-number bg-white font-grey">2</div>
                     <div class="mt-step-title uppercase font-grey-cascade">FACTURA</div>
-                    <div class="mt-step-content font-grey-cascade"><a href="{!! url('factura') !!}" class="btn default red-stripe btn-block">CLICK AQUI</a></div>
+                    <div class="mt-step-content font-grey-cascade"><a href="{!! url('anular-factura') !!}" class="btn default red-stripe btn-block">CLICK AQUI</a></div>
                 </div>
                 <div class="col-md-4 mt-step-col done">
                     <div class="mt-step-number bg-white font-grey">3</div>
                     <div class="mt-step-title uppercase font-grey-cascade">TICKET</div>
-                    <div class="mt-step-content font-grey-cascade"><a href="{!! url('ticket') !!}" class="btn default green-stripe btn-block">CLICK AQUI</a></div>
+                    <div class="mt-step-content font-grey-cascade"><a href="{!! url('anular-ticket') !!}" class="btn default green-stripe btn-block">CLICK AQUI</a></div>
                 </div>
             </div>
         </div>
-        @else
-            <div class="note note-danger">
-                <h4 class="block">Para poder realizar ventas debe aperturar Caja</h4>
-                <p> <a href="{!! url('aperturar-caja') !!}" class="btn default red-stripe">APERTURAR CAJA</a> </p>
-            </div>
-        @endif
     </div>
 </div>
 @stop

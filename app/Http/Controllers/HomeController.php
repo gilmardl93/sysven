@@ -7,6 +7,7 @@ use App\Models\Compra;
 use App\Models\Venta;
 use App\Models\Producto;
 use App\Models\Cliente;
+use App\Models\Caja;
 
 class HomeController extends Controller
 {
@@ -21,6 +22,7 @@ class HomeController extends Controller
         $ventas = Venta::count();
         $productos = Producto::count();
         $clientes = Cliente::count();
-        return view('admin.home.index', compact(['compras', 'ventas', 'productos', 'clientes']));
+        $caja = Caja::AperturaAbierta()->count();
+        return view('admin.home.index', compact(['compras', 'ventas', 'productos', 'clientes', 'caja']));
     }
 }

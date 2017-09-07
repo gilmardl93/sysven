@@ -46,7 +46,7 @@
                             @include('layouts.partials.page.search')
                             <!-- END HEADER SEARCH BOX -->
                             <!-- BEGIN GROUP NOTIFICATION -->
-                            @include('layouts.partials.page.notificacion')
+                            <!-- @include('layouts.partials.page.notificacion') -->
                             <!-- END GROUP NOTIFICATION -->
                             <!-- BEGIN USER PROFILE -->
                             @include('layouts.partials.page.user')

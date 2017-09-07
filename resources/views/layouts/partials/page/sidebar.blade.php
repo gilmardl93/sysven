@@ -25,12 +25,6 @@
                                         </a>
                                     </li>
                                     <li class="nav-item start open">
-                                        <a href="{!! url('restringir') !!}" class="nav-link ">
-                                            <i class="icon-graph"></i>
-                                            <span class="title">Restringir</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item start open">
                                         <a href="{!! url('tiendas') !!}" class="nav-link ">
                                             <i class="icon-graph"></i>
                                             <span class="title">Tienda</span>
@@ -118,6 +112,18 @@
                                         <a href="{!! url('venta') !!}" class="nav-link ">
                                             <i class="icon-bar-chart"></i>
                                             <span class="title">Ventas</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item start ">
+                                        <a href="{!! url('anular') !!}" class="nav-link ">
+                                            <i class="icon-bar-chart"></i>
+                                            <span class="title">Anular</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item start ">
+                                        <a href="{!! url('aperturar-caja') !!}" class="nav-link ">
+                                            <i class="icon-bar-chart"></i>
+                                            <span class="title">Apertura de Caja</span>
                                         </a>
                                     </li>
                                     <li class="nav-item start ">

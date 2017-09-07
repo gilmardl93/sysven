@@ -29,4 +29,34 @@ class Venta extends Model
         return $cadenaSQL->where('numero','00000')
                         ->where('idusuario',Auth::user()->id);
     }
+
+    public function scopeExisteBoleta($cadenaSQL, $numero)
+    {
+        return $cadenaSQL->where('numero',$numero)
+                        ->where('idtipo',1);
+    }
+
+    public function scopeExisteFactura($cadenaSQL, $numero)
+    {
+        return $cadenaSQL->where('numero',$numero)
+                        ->where('idtipo',2);
+    }
+
+    public function scopeExisteTicket($cadenaSQL, $numero)
+    {
+        return $cadenaSQL->where('numero',$numero)
+                        ->where('idtipo',3);
+    }
+
+    public function scopeUltimaSerieBoleta($cadenaSQL)
+    {
+        return $cadenaSQL->where('idtipo',1)
+                        ->where('idusuario',Auth::user()->id);
+    }
+
+    public function scopeDetalleSerieBoleta($cadenaSQL, $numero)
+    {
+        return $cadenaSQL->where('idtipo',1)
+                        ->where('numero',$numero);
+    }
 }
