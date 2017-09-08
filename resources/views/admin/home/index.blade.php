@@ -1,5 +1,11 @@
 @extends('layouts.admin')
 
+
+@section('css-style')
+{!! Html::style('assets/global/plugins/select2/css/select2.min.css') !!}
+{!! Html::style('assets/global/plugins/select2/css/select2-bootstrap.min.css') !!}
+@stop
+
 @section('content')
 
                     <!-- BEGIN PAGE BASE CONTENT -->
@@ -95,4 +101,56 @@
         @endif
     </div>
 </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="portlet light bordered">
+                <div class="portlet-title">
+                    <div class="caption font-dark">
+                        <i class="icon-settings font-dark"></i>
+                        <span class="caption-subject bold uppercase">TOTAL DE INVENTARIO DE LA TIENDA</span>
+                    </div>
+                    <div class="tools"> </div>
+                </div>
+                <div class="portlet-body">
+                <table class="table table-striped" id="sample_1">
+                    <thead>
+                        <tr>
+                            <th> Codigo </th>
+                            <th> Producto </th>
+                            <th> Categoria </th>
+                            <th> Marca </th>
+                            <th> Presentacion </th>
+                            <th> Precio Venta </th>
+                            <th> Stock </th>
+                            <th> Codigo de Barra </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($resultado as $row)
+                        <tr>
+                            <td> {!! $row->codigo !!} </td>
+                            <td> {!! $row->producto !!} </td>
+                            <td> {!! $row->categoria !!} </td>
+                            <td> {!! $row->marca !!} </td>
+                            <td> {!! $row->presentacion !!} </td>
+                            <td> {!! $row->precio_venta !!} </td>
+                            <td> {!! $row->total !!} </td>
+                            <td> {!! DNS1D::getBarcodeHTML($row->codigo, "C128")!!} </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
+
+@section('js-script')
+{!! Html::script('assets/global/plugins/jquery-ui/jquery-ui.min.js') !!}
+{!! Html::script('assets/global/scripts/datatable.js') !!}
+{!! Html::script('assets/global/plugins/datatables/datatables.min.js') !!}
+{!! Html::script('assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js') !!}
+{!! Html::script('assets/pages/scripts/table-datatables-buttons.js') !!}
+@stop

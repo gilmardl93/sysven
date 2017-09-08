@@ -183,7 +183,7 @@
         } 
     });
     function producto(pro){
-        var markup = pro.text + " - " + pro.pre;
+        var markup = pro.text + " - " + pro.pre ;
         return markup;
     }
 
@@ -208,13 +208,13 @@
         },
         placeholder : 'Buscar Producto: ejemplo LIMA',
         minimumInputLength: 1,
-        templateResult: producto,
-        templateSelection: producto,
+        templateResult: cliente,
+        templateSelection: cliente,
         escapeMarkup: function(markup) {
             return markup;
         } 
     });
-    function producto(pro){
+    function cliente(pro){
         var markup = pro.text + " - " + pro.ruc;
         return markup;
     }

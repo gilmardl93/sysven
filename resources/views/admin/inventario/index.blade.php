@@ -65,5 +65,4 @@
 {!! Html::script('assets/global/plugins/datatables/datatables.min.js') !!}
 {!! Html::script('assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js') !!}
 {!! Html::script('assets/pages/scripts/table-datatables-buttons.js') !!}
-
 @stop

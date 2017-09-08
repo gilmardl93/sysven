@@ -18,6 +18,7 @@ class CreateInventariosTable extends Migration
             $table->integer('idtienda');
             $table->integer('idproducto');
             $table->integer('stock');
+            $table->dateTime('fecha_hora');
             $table->timestamps();
         });
     }

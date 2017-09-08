@@ -143,6 +143,28 @@
                                 </a>
                                 <ul class="sub-menu">
                                     <li class="nav-item start ">
+                                        <a href="{!! url('inventario-tiendas') !!}" class="nav-link ">
+                                            <i class="icon-bar-chart"></i>
+                                            <span class="title">Tiendas</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item start ">
+                                        <a href="{!! url('inventario-general') !!}" class="nav-link ">
+                                            <i class="icon-bar-chart"></i>
+                                            <span class="title">Pendientes</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item start ">
+                                <a href="javascript:;" class="nav-link nav-toggle">
+                                    <i class="icon-home"></i>
+                                    <span class="title">REPORTES</span>
+                                    <span class="selected"></span>
+                                    <span class="arrow open"></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li class="nav-item start ">
                                         <a href="{!! url('inventario-general') !!}" class="nav-link ">
                                             <i class="icon-bar-chart"></i>
                                             <span class="title">General</span>
