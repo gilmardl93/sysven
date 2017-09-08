@@ -24,9 +24,21 @@ class Venta extends Model
         return $this->hasOne(Cliente::class,'id','idcliente');
     }
 
+    public function pago()
+    {
+        return $this->hasOne(Pago::class,'id','idpago');
+    }
+
     public function scopeDisponible($cadenaSQL)
     {
         return $cadenaSQL->where('numero','00000')
+                        ->where('idusuario',Auth::user()->id);
+    }
+
+    public function scopeProductoExiste($cadenaSQL, $producto)
+    {
+        return $cadenaSQL->where('numero','00000')
+                        ->where('idproducto',$producto)
                         ->where('idusuario',Auth::user()->id);
     }
 
@@ -57,6 +69,30 @@ class Venta extends Model
     public function scopeDetalleSerieBoleta($cadenaSQL, $numero)
     {
         return $cadenaSQL->where('idtipo',1)
+                        ->where('numero',$numero);
+    }
+
+    public function scopeUltimaSerieFactura($cadenaSQL)
+    {
+        return $cadenaSQL->where('idtipo',2)
+                        ->where('idusuario',Auth::user()->id);
+    }
+
+    public function scopeDetalleSerieFactura($cadenaSQL, $numero)
+    {
+        return $cadenaSQL->where('idtipo',2)
+                        ->where('numero',$numero);
+    }
+
+    public function scopeUltimaSerieTicket($cadenaSQL)
+    {
+        return $cadenaSQL->where('idtipo',3)
+                        ->where('idusuario',Auth::user()->id);
+    }
+
+    public function scopeDetalleSerieTicket($cadenaSQL, $numero)
+    {
+        return $cadenaSQL->where('idtipo',3)
                         ->where('numero',$numero);
     }
 }

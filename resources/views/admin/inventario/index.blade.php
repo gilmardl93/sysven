@@ -23,10 +23,9 @@
                     <div class="tools"> </div>
                 </div>
                 <div class="portlet-body">
-                <table class="table table-bordered table-hover" id="sample_1">
+                <table class="table table-striped" id="sample_1">
                     <thead>
                         <tr>
-                            <th> Fecha Registro </th>
                             <th> Codigo </th>
                             <th> Producto </th>
                             <th> Categoria </th>
@@ -35,13 +34,12 @@
                             <th> Precio Compra </th>
                             <th> Precio Venta </th>
                             <th> Stock </th>
-                            <th> Stock </th>
+                            <th> Codigo de Barra </th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($productos as $row)
                         <tr>
-                            <td> {!! $row->fecha !!} </td>
                             <td> {!! $row->codigo !!} </td>
                             <td> {!! $row->nombre !!} </td>
                             <td> {!! $row->categoria->nombre !!} </td>
@@ -50,7 +48,7 @@
                             <td> {!! $row->precio_compra !!} </td>
                             <td> {!! $row->precio_venta !!} </td>
                             <td> {!! $row->stock !!} </td>
-                            <td> Salida </td>
+                            <td> {!! DNS1D::getBarcodeHTML($row->codigo, "C128")!!} </td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -66,6 +64,6 @@
 {!! Html::script('assets/global/scripts/datatable.js') !!}
 {!! Html::script('assets/global/plugins/datatables/datatables.min.js') !!}
 {!! Html::script('assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js') !!}
-{!! Html::script('assets/pages/scripts/table-datatables-buttons.min.js') !!}
+{!! Html::script('assets/pages/scripts/table-datatables-buttons.js') !!}
 
 @stop

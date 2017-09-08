@@ -41,7 +41,7 @@
                 {!! Form::submit('REGISTRAR', ['class' => 'btn default green-stripe']) !!}
                 {!! Form::close() !!}
                 </div>
-            </div>
+            </div> 
         </div>
         <div class="col-md-8">
             <div class="portlet light bordered">

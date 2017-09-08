@@ -21,6 +21,12 @@
         </div>
     @endif
 
+    @if (session('final'))
+        <div class="alert alert-success">
+            {{ session('final') }} <a href="{!! url('reporte-boleta') !!}" target="_lblank" class="btn default green-stripe">VER BOLETA</a>
+        </div>
+    @endif
+
     @if (session('eliminar'))
         <div class="alert alert-danger">
             {{ session('eliminar') }}
@@ -100,12 +106,19 @@
                     {!! Form::open(['method' => 'POST', 'url' => 'registrar-boleta']) !!}
                     <div class="row">
                         <div class="col-md-6">
-                            <label>OPERACION</label>
+                            <label><b>OPERACION</b></label>
                             <input type="text" value="001 - <?php echo str_pad($max+1, 6, '0', STR_PAD_LEFT); ?>" disabled>
                         </div>
                         <div class="col-md-6">
-                            <label>FECHA</label>
+                            <label><b>FECHA</b></label>
                             {!! Form::text('fecha_compra', date('Y-m-d')  ,['disabled' => true])!!}
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                        <label><b>TIPO DE PAGO</b></label>
+                        {!! Form::select('pago',$pago, null, ['class' => 'form-control']) !!}
                         </div>
                     </div>
                     <br>
@@ -119,7 +132,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             {!! Form::submit('REGISTRAR COMPRA',['class' => 'btn default green-stripe']) !!}
-                            <a href="{!! url('nuevo-cliente') !!}" class="btn default yellow-stripe">NUEVO CLIENTE</a>
+                            <a href="{!! url('cliente') !!}" class="btn default yellow-stripe">NUEVO CLIENTE</a>
                             <a href="{!! url('venta') !!}" class="btn default red-stripe">ATRAS</a>
                         </div>
                     </div>

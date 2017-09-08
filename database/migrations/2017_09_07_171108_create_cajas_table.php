@@ -17,8 +17,8 @@ class CreateCajasTable extends Migration
             $table->increments('id');
             $table->time("hora_inicio");
             $table->time("hora_cierre")->nullable();
-            $table->decimal("monto_inicial",6,2);
-            $table->decimal("total_ventas",6,2)->nullable();
+            $table->decimal("monto_inicial",10,2);
+            $table->decimal("total_ventas",10,2)->nullable();
             $table->integer("idusuario");
             $table->timestamps();
         });

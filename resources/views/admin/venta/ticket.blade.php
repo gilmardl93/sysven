@@ -17,7 +17,13 @@
 
     @if (session('message'))
         <div class="alert alert-success">
-            {{ session('message') }}
+            {{ session('message') }} 
+        </div>
+    @endif
+
+    @if (session('final'))
+        <div class="alert alert-success">
+            {{ session('final') }} <a href="{!! url('reporte-ticket') !!}" target="_lblank" class="btn default green-stripe">VER TICKET</a>
         </div>
     @endif
 
@@ -73,7 +79,7 @@
                             <td> {!! $row->producto->nombre !!} </td>
                             <td> {!! $row->producto->precio_venta !!}</td>
                             <td> {!! $row->cantidad * $row->producto->precio_venta !!} </td>
-                            <td> <a href="eliminar-producto-agregado-boleta/{!! $row->id !!} " title="Eliminar" class="btn btn-icon-only red" ><i class="fa fa-trash"></i></a> </td>
+                            <td> <a href="eliminar-producto-agregado-ticket/{!! $row->id !!} " title="Eliminar" class="btn btn-icon-only red" ><i class="fa fa-trash"></i></a> </td>
                         </tr>
                         @endforeach
                     <tbody>
@@ -111,6 +117,13 @@
                     <br>
                     <div class="row">
                         <div class="col-md-12">
+                        <label><b>TIPO DE PAGO</b></label>
+                        {!! Form::select('pago',$pago, null, ['class' => 'form-control']) !!}
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
                             <label><b>BUSCAR CLIENTE</b></label>
                             {!! Form::select('provedor',[], null, ['id' => 'Clientes', 'class' => 'form-control']) !!}
                         </div>
@@ -119,7 +132,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             {!! Form::submit('REGISTRAR COMPRA',['class' => 'btn default green-stripe']) !!}
-                            <a href="{!! url('nuevo-cliente') !!}" class="btn default yellow-stripe">NUEVO CLIENTE</a>
+                            <a href="{!! url('cliente') !!}" class="btn default yellow-stripe">NUEVO CLIENTE</a>
                             <a href="{!! url('venta') !!}" class="btn default red-stripe">ATRAS</a>
                         </div>
                     </div>
@@ -127,6 +140,7 @@
                 </div>
             </div>
         </div>
+
 @stop
 
 @section('js-script')

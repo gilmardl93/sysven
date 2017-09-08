@@ -24,7 +24,7 @@ class ClienteRequest extends FormRequest
     public function rules()
     {
         return [
-            'idcliente' => 'required'
+            'cliente' => 'required'
         ];
     }
 }

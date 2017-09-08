@@ -21,6 +21,12 @@
         </div>
     @endif
 
+    @if (session('final'))
+        <div class="alert alert-success">
+            {{ session('final') }} <a href="{!! url('reporte-factura') !!}" target="_lblank" class="btn default green-stripe">VER FACTURA</a>
+        </div>
+    @endif
+
     @if (session('eliminar'))
         <div class="alert alert-danger">
             {{ session('eliminar') }}
@@ -97,7 +103,7 @@
                     </div>
                 </div>
                 <div class="portlet-body">
-                    {!! Form::open(['method' => 'POST', 'url' => 'registrar-boleta']) !!}
+                    {!! Form::open(['method' => 'POST', 'url' => 'registrar-factura']) !!}
                     <div class="row">
                         <div class="col-md-6">
                             <label>OPERACION</label>
@@ -111,15 +117,22 @@
                     <br>
                     <div class="row">
                         <div class="col-md-12">
+                        <label><b>TIPO DE PAGO</b></label>
+                        {!! Form::select('pago',$pago, null, ['class' => 'form-control']) !!}
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
                             <label><b>BUSCAR CLIENTE</b></label>
-                            {!! Form::select('provedor',[], null, ['id' => 'Clientes', 'class' => 'form-control']) !!}
+                            {!! Form::select('cliente',[], null, ['id' => 'Clientes', 'class' => 'form-control']) !!}
                         </div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-md-12">
                             {!! Form::submit('REGISTRAR COMPRA',['class' => 'btn default green-stripe']) !!}
-                            <a href="{!! url('nuevo-cliente') !!}" class="btn default yellow-stripe">NUEVO CLIENTE</a>
+                            <a href="{!! url('cliente') !!}" class="btn default yellow-stripe">NUEVO CLIENTE</a>
                             <a href="{!! url('venta') !!}" class="btn default red-stripe">ATRAS</a>
                         </div>
                     </div>

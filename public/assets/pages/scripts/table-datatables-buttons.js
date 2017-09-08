@@ -21,40 +21,21 @@ var TableDatatablesButtons = function () {
             },
 
             // Or you can use remote translation file
-            //"language": {
-            //   url: '//cdn.datatables.net/plug-ins/3cfcc339e89/i18n/Portuguese.json'
-            //},
+            "language": {
+               url: '//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json'
+            },
 
 
             buttons: [
                 { extend: 'print', className: 'btn dark btn-outline' },
-                { extend: 'copy', className: 'btn red btn-outline' },
                 { extend: 'pdf', className: 'btn green btn-outline' },
                 { extend: 'excel', className: 'btn yellow btn-outline ' },
-                { extend: 'csv', className: 'btn purple btn-outline ' },
                 { extend: 'colvis', className: 'btn dark btn-outline', text: 'Columns'}
             ],
 
-            "bProcessing": true,
-            "sAjaxSource": '{{ url("listado-compras") }}',
-            "pagingType": "bootstrap_full_number",
-            "columnDefs": [
-                        { 
-                            'orderable': false,
-                            'targets': '_all'
-                        },
-                        {
-                            'targets':8,
-                            'render': function ( data, type, row ) {
-                            return ' \
-                            <a href="eliminar-compra/'+row.id+' " title="Eliminar" class="btn btn-icon-only red" ><i class="fa fa-trash"></i></a> \
-                            ';
-                            }
-                        }
-                    ],
 
             // setup responsive extension: http://datatables.net/extensions/responsive/
-            responsive: true,
+            responsive: false,
 
             //"ordering": false, disable column ordering 
             //"paging": false, disable pagination

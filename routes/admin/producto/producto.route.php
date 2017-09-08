@@ -14,7 +14,7 @@
 
             Route::post('buscar-producto','ProductosController@buscar');
 
-            Route::get('listado-productos-json','ProductosController@listadoJson')->name('producto.agregar');
-            Route::get('listado-productos-disponibles-json','ProductosController@listadoDisponibleJson')->name('producto.agregar');
+            Route::get('listado-productos-json','ProductosController@listadoJson');
+            Route::get('listado-productos-disponibles-json','ProductosController@listadoDisponibleJson');
         });        
     });

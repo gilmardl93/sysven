@@ -31,10 +31,11 @@ class VentasController extends Controller
 
     public function boleta()
     {
-        $max   = Venta::where('idtipo',1)->max('numero');
-        $venta = Venta::Disponible()->with('producto')->get();
+        $max    = Venta::where('idtipo',1)->max('numero');
+        $venta  = Venta::Disponible()->with('producto')->get();
         $monto  = Venta::Disponible()->sum('monto');
-        return view('admin.venta.boleta', compact(['venta',  'max', 'monto']));
+        $pago   = Pago::pluck('nombre','id');
+        return view('admin.venta.boleta', compact(['venta',  'max', 'monto', 'pago']));
     }
 
     public function registrarProductoBoleta(Request $request)
@@ -43,14 +44,25 @@ class VentasController extends Controller
         foreach($stock as $row):
             if($row->stock >= $request->cantidad)
             {
-                $data = new Venta();
-                $data->idproducto = $request->producto;
-                $data->cantidad = $request->cantidad;
-                $data->monto = $request->cantidad * $row->precio_venta;
-                $data->idusuario = Auth::user()->id;
-                $data->save();
+                $productoExiste = Venta::ProductoExiste($request->producto)->count();
+                if($productoExiste >= 1)
+                {
+                    $cantidadProducto = Venta::ProductoExiste($request->producto)->select('cantidad')->get();
+                    $totalProducto = ($cantidadProducto->first()->cantidad + $request->cantidad) * $row->precio_venta;
+                    Venta::ProductoExiste($request->producto)->update(['monto' => $totalProducto ]);
+                    Venta::ProductoExiste($request->producto)->increment('cantidad',$request->cantidad);
+                    return redirect('boleta')->with('message','Se agrego productos');
+                }else
+                {
+                    $data = new Venta();
+                    $data->idproducto = $request->producto;
+                    $data->cantidad = $request->cantidad;
+                    $data->monto = $request->cantidad * $row->precio_venta;
+                    $data->idusuario = Auth::user()->id;
+                    $data->save();
 
-                return redirect('boleta')->with('message','Se agrego productos');
+                    return redirect('boleta')->with('message','Se agrego productos');
+                }
             }else 
             {
                 return redirect('boleta')->with('eliminar','La cantidad ingresada sobre pasa el stock disponible');
@@ -71,16 +83,19 @@ class VentasController extends Controller
         foreach($producto as $row):
             Producto::where('id',$row->idproducto)->decrement('stock',$row->cantidad);
         endforeach;
-        $numero = Venta::where('idtipo',1)->max('numero');
+        $numero = Venta::where('idtipo',1)->max('id');
+        $caja = Caja::where('idusuario',Auth::user()->id)->max('id');
         $productos = Venta::Disponible()->update([
             'numero'    => $numero + 1,
             'idtipo'    => 1,
             'idcliente' => $request->idcliente,
             'idtienda'  => Auth::user()->idtienda,
+            'idcaja'    => $caja,
+            'idpago'    => $request->pago,
             'fecha'     => date('Y-m-d H:i:s')
         ]);
 
-        return redirect('boleta')->with('message','Se registro nueva boleta');
+        return redirect('boleta')->with('final','Se registro nueva boleta');
     }
 
     public function factura()
@@ -88,7 +103,8 @@ class VentasController extends Controller
         $max   = Venta::where('idtipo',2)->max('numero');
         $venta = Venta::Disponible()->with('producto')->get();
         $monto  = Venta::Disponible()->sum('monto');
-        return view('admin.venta.factura', compact(['venta',  'max', 'monto']));
+        $pago   = Pago::pluck('nombre','id');
+        return view('admin.venta.factura', compact(['venta',  'max', 'monto', 'pago']));
     }
 
     public function registrarProductoFactura(Request $request)
@@ -97,17 +113,29 @@ class VentasController extends Controller
         foreach($stock as $row):
             if($row->stock >= $request->cantidad)
             {
-                $data = new Venta();
-                $data->idproducto = $request->producto;
-                $data->cantidad = $request->cantidad;
-                $data->monto = $request->cantidad * $row->precio_venta;
-                $data->idusuario = Auth::user()->id;
-                $data->save();
+                $productoExiste = Venta::ProductoExiste($request->producto)->count();
+                if($productoExiste >= 1)
+                {
+                    $cantidadProducto = Venta::ProductoExiste($request->producto)->select('cantidad')->get();
+                    $totalProducto = ($cantidadProducto->first()->cantidad + $request->cantidad) * $row->precio_venta;
+                    Venta::ProductoExiste($request->producto)->update(['monto' => $totalProducto ]);
+                    Venta::ProductoExiste($request->producto)->increment('cantidad',$request->cantidad);
+                    return redirect('factura')->with('message','Se agrego productos');
+                }else
+                {
+                    $data = new Venta();
+                    $data->idproducto = $request->producto;
+                    $data->cantidad = $request->cantidad;
+                    $data->monto = $request->cantidad * $row->precio_venta;
+                    $data->idusuario = Auth::user()->id;
+                    $data->save();
 
-                return redirect('factura')->with('message','Se agrego productos');
+                    return redirect('factura')->with('message','Se agrego productos');
+                }
             }else 
             {
-                return redirect('factura')->with('eliminar','La cantidad ingresada sobre pasa el stock disponible');
+                return redirect('factura')->with('eliminar','La cantidad ingresada sobre pasa el stock disponible')
+                                        ->with('imprimir','<a href="{!! url("reporte-factura") !!}" class="btn default green-stripe">VER BOLETA</a>');
             }
         endforeach;
     }
@@ -126,15 +154,18 @@ class VentasController extends Controller
             Producto::where('id',$row->idproducto)->decrement('stock',$row->cantidad);
         endforeach;
         $numero = Venta::where('idtipo',2)->max('numero');
+        $caja = Caja::where('idusuario',Auth::user()->id)->max('id');
         $productos = Venta::Disponible()->update([
             'numero'    => $numero + 1,
             'idtipo'    => 2,
             'idcliente' => $request->idcliente,
             'idtienda'  => Auth::user()->idtienda,
+            'idcaja'    => $caja,
+            'idpago'    => $request->pago,
             'fecha'     => date('Y-m-d H:i:s')
         ]);
 
-        return redirect('boleta')->with('message','Se registro nueva factura');
+        return redirect('factura')->with('final','Se registro nueva factura');
     }
 
     public function ticket()
@@ -142,7 +173,8 @@ class VentasController extends Controller
         $max   = Venta::where('idtipo',3)->max('numero');
         $venta = Venta::Disponible()->with('producto')->get();
         $monto  = Venta::Disponible()->sum('monto');
-        return view('admin.venta.ticket', compact(['venta',  'max', 'monto']));
+        $pago   = Pago::pluck('nombre','id');
+        return view('admin.venta.ticket', compact(['venta',  'max', 'monto', 'pago']));
     }
 
     public function registrarProductoTicket(Request $request)
@@ -151,14 +183,25 @@ class VentasController extends Controller
         foreach($stock as $row):
             if($row->stock >= $request->cantidad)
             {
-                $data = new Venta();
-                $data->idproducto = $request->producto;
-                $data->cantidad = $request->cantidad;
-                $data->monto = $request->cantidad * $row->precio_venta;
-                $data->idusuario = Auth::user()->id;
-                $data->save();
+                $productoExiste = Venta::ProductoExiste($request->producto)->count();
+                if($productoExiste >= 1)
+                {
+                    $cantidadProducto = Venta::ProductoExiste($request->producto)->select('cantidad')->get();
+                    $totalProducto = ($cantidadProducto->first()->cantidad + $request->cantidad) * $row->precio_venta;
+                    Venta::ProductoExiste($request->producto)->update(['monto' => $totalProducto ]);
+                    Venta::ProductoExiste($request->producto)->increment('cantidad',$request->cantidad);
+                    return redirect('ticket')->with('message','Se agrego productos');
+                }else
+                {
+                    $data = new Venta();
+                    $data->idproducto = $request->producto;
+                    $data->cantidad = $request->cantidad;
+                    $data->monto = $request->cantidad * $row->precio_venta;
+                    $data->idusuario = Auth::user()->id;
+                    $data->save();
 
-                return redirect('ticket')->with('message','Se agrego productos');
+                    return redirect('ticket')->with('message','Se agrego productos');
+                }
             }else 
             {
                 return redirect('ticket')->with('eliminar','La cantidad ingresada sobre pasa el stock disponible');
@@ -180,15 +223,17 @@ class VentasController extends Controller
             Producto::where('id',$row->idproducto)->decrement('stock',$row->cantidad);
         endforeach;
         $numero = Venta::where('idtipo',3)->max('numero');
+        $caja = Caja::where('idusuario',Auth::user()->id)->max('id');
         $productos = Venta::Disponible()->update([
             'numero'    => $numero + 1,
             'idtipo'    => 3,
             'idcliente' => $request->idcliente,
             'idtienda'  => Auth::user()->idtienda,
+            'idpago'    => $request->pago,
             'fecha'     => date('Y-m-d H:i:s')
         ]);
 
-        return redirect('ticket')->with('message','Se registro nuevo ticket');
+        return redirect('ticket')->with('final','Se registro nuevo ticket');
     }
 
     public function anular()

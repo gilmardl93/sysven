@@ -39,13 +39,13 @@ class ProductosController extends Controller
     {
         $name = $request->varsearch ?:'';
         $name = trim(strtoupper($name));
-        $producto = Producto::select('producto.id','producto.nombre as text','presentacion.nombre as pre')
+        $disponible = Producto::select('producto.id','producto.nombre as text','presentacion.nombre as pre')
                         ->join('presentacion','presentacion.id','=','producto.idpresentacion')
                         ->where('producto.nombre','like',"%$name%")
                         ->where('producto.stock','<>','')
                         ->where('producto.precio_venta','<>','')
                         ->get();     
-        return $producto;
+        return $disponible;
     }
 
     public function nuevo()
